@@ -1,0 +1,12 @@
+{
+    "result": {
+        "downloadUrl": "http://assertcdn.sinaapp.com/Huidu_1.0.0.apk",
+        "versionCode": 1,
+        "versionName": "1.2.0"
+    },
+    "models": {},
+    "resultCode": {
+        "code": 201365172,
+        "message": "调用成功"
+    }
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.KVDOMapper" >
+  <resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.KVDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="kv_key" property="key" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="kv_value" property="value" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+  </resultMap>
+	  
+	  <sql id="dynamic_where">
+	      <where>
+	          <if test="type != null">
+	             <![CDATA[ type = #{type,jdbcType=TINYINT} ]]>
+	          </if>
+	          <if test="keysList != null">  
+	            and kv_key in (
+	                <foreach collection="keysList" item="item" separator="," >
+	                    #{item} 
+	                </foreach>
+	              )
+	          </if>
+	    </where>
+	  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from kv_store
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.java.mapyou.mybatis.domain.KVDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kv_store (id, kv_key, type, kv_value, 
+      gmt_create, gmt_modify)
+    values (#{id,jdbcType=BIGINT},#{key,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{value,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.KVDO" >
+    update kv_store
+    set kv_key = #{key,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      kv_value = #{value,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, kv_key, type, kv_value, gmt_create, gmt_modify
+    from kv_store
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, kv_key, type, kv_value, gmt_create, gmt_modify
+    from kv_store
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, kv_key, type, kv_value, gmt_create, gmt_modify
+    from kv_store
+  </select>
+  
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.mapyou.mybatis.query.KVQuery" >
+    select a.id, a.kv_key, a.type, a.kv_value, a.gmt_create, a.gmt_modify
+    from (select id from  kv_store
+		    <include refid="dynamic_where"/>
+             limit #{startIndex}, #{pageSize}
+          )b, kv_store a where b.id = a.id;
+  </select>
+  
+</mapper>

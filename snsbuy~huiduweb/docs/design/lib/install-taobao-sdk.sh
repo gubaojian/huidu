@@ -1,0 +1,1 @@
+mvn install:install-file   -DgroupId=net.java.rome  -DartifactId=taobao-open-sdk    -Dversion=0.0.1    -Dfile=taobao-sdk-java-auto_1365581873267-20130420.jar -Dpackaging=jar   -DgeneratePom=true  

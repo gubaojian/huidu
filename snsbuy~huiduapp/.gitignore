@@ -1,0 +1,8 @@
+#Folder
+/judu/Pods/
+/judu/.git/
+#Files
+*.o
+*.class
+*.log
+*.lock

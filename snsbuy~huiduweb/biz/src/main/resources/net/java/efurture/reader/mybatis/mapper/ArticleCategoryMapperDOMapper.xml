@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.efurture.reader.mybatis.mapper.ArticleCategoryMapperDOMapper">
+  <resultMap id="BaseResultMap" type="net.java.efurture.reader.mybatis.domain.ArticleCategoryMapperDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="article_id" property="articleId" jdbcType="BIGINT" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from article_category_mapper
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into article_category_mapper (article_id, category_id, gmt_create
+      )
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >
+       (#{item.articleId,jdbcType=BIGINT}, #{item.categoryId,jdbcType=INTEGER}, #{item.gmtCreate,jdbcType=TIMESTAMP}
+          )
+      </foreach>
+  </insert>
+  
+    <delete id="deleteByArticleId" parameterType="java.lang.Long" >
+    delete from article_category_mapper
+       where article_id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="net.java.efurture.reader.mybatis.domain.ArticleCategoryMapperDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into article_category_mapper (article_id, category_id, gmt_create
+      )
+    values (#{articleId,jdbcType=BIGINT}, #{categoryId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="net.java.efurture.reader.mybatis.domain.ArticleCategoryMapperDO" >
+    update article_category_mapper
+    set article_id = #{articleId,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+ 
+   <select id="categoryArticleCount" resultType="java.util.HashMap" parameterType="java.util.List" >
+    select  category_id as categoryId, count(*)  as count from article_category_mapper 
+    
+     where  category_id in   
+     (
+        <foreach collection="list" item="item" index="index" separator="," > 
+          #{item}
+        </foreach>
+      )
+     group by category_id
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, article_id, category_id, gmt_create
+    from article_category_mapper
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, article_id, category_id, gmt_create
+    from article_category_mapper
+  </select>
+</mapper>

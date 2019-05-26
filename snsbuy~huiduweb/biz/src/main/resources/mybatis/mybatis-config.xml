@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration >
+
+   <settings>
+      <setting name="logImpl" value="LOG4J"/>
+      <setting name="cacheEnabled" value="false"/>
+      <setting name="lazyLoadingEnabled" value="false"/>
+      <setting name="aggressiveLazyLoading" value="false"/>
+      <setting name="defaultStatementTimeout" value="500"/>      
+   </settings>
+
+  <mappers >
+    <!-- 汇读 -->
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/ArticleDOMapper.xml"/>
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/ArticleSourceMapper.xml" />
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/FeedDOMapper.xml" />
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/TaskDOMapper.xml" />
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/CategoryDOMapper.xml" />
+    <mapper resource="net/java/efurture/reader/mybatis/mapper/ArticleCategoryMapperDOMapper.xml" />
+  
+  
+  
+     <!-- 设备定位 -->
+    <mapper resource="net/java/mapyou/mybatis/mapper/DeviceDOMapper.xml" />
+    <mapper resource="net/java/mapyou/mybatis/mapper/DeviceMapDOMapper.xml" />   
+    <mapper resource="net/java/mapyou/mybatis/mapper/LocationDOMapper.xml" />
+    <mapper resource="net/java/mapyou/mybatis/mapper/ShortUrlDOMapper.xml" />
+    <mapper resource="net/java/mapyou/mybatis/mapper/KVDOMapper.xml" />
+  
+  </mappers>
+</configuration>

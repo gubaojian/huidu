@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jee="http://www.springframework.org/schema/jee"
+        xmlns:lang="http://www.springframework.org/schema/lang"
+        xmlns:jms="http://www.springframework.org/schema/jms"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+        default-autowire="byName">
+
+<!--  Routing4DB 配置
+<bean id="articleDOMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+    <property name="routingStrategy"  ref="masterSlaveStrategy"/>
+</bean>  
+
+<bean id="articleSourceMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleSourceMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+     <property name="routingStrategy" ref="masterSlaveStrategy"/>
+</bean>  
+
+
+<bean id="categoryDOMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.CategoryDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+    <property name="routingStrategy" ref="masterSlaveStrategy"/>
+</bean> 
+
+<bean id="feedDOMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.FeedDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+    <property name="routingStrategy" ref="masterSlaveStrategy"/>
+</bean> 
+
+<bean id="taskDOMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.TaskDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+    <property name="routingStrategy" ref="masterSlaveStrategy"/>
+</bean> 
+
+
+<bean id="articleCategoryMapperDOMapper" class="com.google.code.routing4db.mybatis.RoutingMapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleCategoryMapperDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+    <property name="routingStrategy" ref="masterSlaveStrategy"/>
+</bean> 
+ -->
+
+<bean id="articleDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean>  
+
+<bean id="articleSourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleSourceMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean>  
+
+
+<bean id="categoryDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.CategoryDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="feedDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.FeedDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="taskDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.TaskDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+
+<bean id="articleCategoryMapperDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.efurture.reader.mybatis.mapper.ArticleCategoryMapperDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+
+
+<bean id="deviceDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.mapyou.mybatis.mapper.DeviceDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="deviceMapDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.mapyou.mybatis.mapper.DeviceMapDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="locationDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.mapyou.mybatis.mapper.LocationDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="shortUrlDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.mapyou.mybatis.mapper.ShortUrlDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+<bean id="kvDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    <property name="mapperInterface" value="net.java.mapyou.mybatis.mapper.KVDOMapper" />  
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean> 
+
+
+
+</beans>

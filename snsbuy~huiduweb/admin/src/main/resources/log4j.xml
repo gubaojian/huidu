@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM  "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+        
+    <appender name="FileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/huidu/huidu.log" />
+        <param name="Append" value="true" />  
+        <param name="DatePattern" value="yyyy-MM-dd" />  
+        <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH\:mm\:ss} %5p [%t] %c(%L) - %m%n" />
+         </layout>
+      </appender>
+      
+        <!-- Appenders -->
+        <appender name="Console" class="org.apache.log4j.ConsoleAppender">
+                <param name="Target" value="System.out" />
+                <layout class="org.apache.log4j.PatternLayout">
+                        <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+                </layout>
+        </appender>
+ 
+      
+        <!-- 3rdparty Loggers-->
+        <logger name="org.apache.http">
+                <level value="error" />
+        </logger>
+         
+         
+         <!-- 显示sql http://mybatis.github.io/mybatis-3/logging.html  
+          <logger name="net.java.efurture.reader.mybatis.mapper">
+             <level value="debug"></level>
+         </logger>
+       -->
+       <logger name="net.java.efurture.reader.biz">
+            <level value="warn"></level>   
+       </logger>
+       
+       <logger name="net.java.efurture.reader.biz.timer.task">
+            <level value="warn"></level>   
+       </logger>
+         
+        <!-- Root Logger -->
+        <root>
+            <priority value="error" />
+            <appender-ref ref="FileAppender" />
+        </root>
+</log4j:configuration>

@@ -1,0 +1,56 @@
+1、http://blog.codingnow.com/2013/05/join_us.html
+2、招聘广告过滤  title包含招聘的。去掉
+3、图片相对链接补全   http://127.0.0.1:8080/admin/me/articleDetail.htm?id=699  fixed 直接干掉
+4、flash支持： http://127.0.0.1:8080/admin/me/articleDetail.html?id=423&source=true
+
+//处理后：
+4、gif 100%图片问题  删除或者去掉100%  建议删除。 （去掉100%）
+5、清理头部和尾部的  <br/> <hr> <p></p>  空标签
+
+
+6、是否允许script标签？ 
+http://127.0.0.1:8080/admin/me/articleDetail.html?id=475&source=true
+
+7、flash embed 兼容 
+ http://127.0.0.1:8080/admin/me/articleDetail.html?id=477&source=false
+
+8、图片base64编码， 并同意采用gif 或者png 格式存储
+
+
+异常数据兼容：
+
+http://blog.codingnow.com/
+
+
+
+UIWebView
+
+1、图片请求reffer 设置为空
+
+
+
+其它情况：
+图片是否抓取. refer 展示不做，采用客户端解决。
+
+如果未来用户比较多，则采用统一存储解决。
+
+
+图片referer
+
+http://127.0.0.1:8080/admin/me/articleDetail.htm?id=461
+http://stblog.baidu-tech.com/?p=1906
+
+
+
+
+1、文章重复抓取的问题： 
+select count(id) from  article group by title
+
+4、title中的 标点符号去除
+5、客户端中的阴影调整
+6、文章的同步问题， 未保存
+
+
+7、后台增加一个文章的转换入口（后期可以做）
+
+

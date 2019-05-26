@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.efurture.reader.mybatis.mapper.CategoryDOMapper" >
+
+  <resultMap id="BaseResultMap" type="net.java.efurture.reader.mybatis.domain.CategoryDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <sql id="do_columns">
+    a.id, a.name, a.pinyin, a.status, a.sort, a.gmt_create, a.gmt_modified
+  </sql>
+  
+  <sql id="dynamic_where">
+      <where>
+          <if test="nameList != null">
+              name in (
+                <foreach collection="nameList" item="item" separator="," >
+                    #{item} 
+                </foreach>
+              )
+          </if>
+          <if test="pinyin != null">
+              <![CDATA[ and (pinyin like CONCAT(#{pinyin}, '%'))]]>
+          </if> 
+           <if test="status != null">
+             <![CDATA[ and  status = #{status}]]>
+          </if>
+    </where>
+  </sql>
+  
+  
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+     delete category where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <insert id="insert" parameterType="net.java.efurture.reader.mybatis.domain.CategoryDO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into category (name, pinyin,  status, sort, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR},#{pinyin,jdbcType=VARCHAR},  #{status,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="net.java.efurture.reader.mybatis.domain.CategoryDO" >
+    update category
+     <set>
+        <if test="name != null">
+           name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="status != null">
+           status = #{status,jdbcType=TINYINT},
+        </if>
+        <if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+        </if>
+        <if test="gmtModified != null">
+           gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <update id="updateCategorySort">
+      update category set sort = floor(1000*rand()) where status = 0;
+  </update>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="do_columns"/>
+    from category
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+   <select id="countByQuery"  resultType="java.lang.Integer" parameterType="net.java.efurture.reader.mybatis.query.CategoryQuery">
+      select count(*)
+      from category
+      <include refid="dynamic_where"/>
+  </select>
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.efurture.reader.mybatis.query.CategoryQuery">
+        select  <include refid="do_columns"/>
+    from (
+        select id from  category
+        <include refid="dynamic_where"/>
+          order by sort desc
+          limit #{startIndex}, #{pageSize}
+    )b, category a where b.id = a.id;
+  </select>
+  
+  
+  
+  <select id="selectArticleCategory" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select  <include refid="do_columns"/>
+    from category a, article_category_mapper m
+      where m.article_id = #{articleId,jdbcType=BIGINT} and a.id = m.category_id and a.status = 0
+  </select>
+
+  
+</mapper>

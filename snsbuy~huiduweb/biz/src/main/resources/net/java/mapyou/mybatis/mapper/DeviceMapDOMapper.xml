@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.DeviceMapDOMapper" >
+  <resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.DeviceMapDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="track_device_id" property="trackDeviceId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from phone_device_map
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.java.mapyou.mybatis.domain.DeviceMapDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into phone_device_map (id, device_id, track_device_id, status, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT},#{deviceId,jdbcType=BIGINT}, #{trackDeviceId,jdbcType=BIGINT}, 
+      #{status,jdbcType=TINYINT},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.DeviceMapDO" >
+    update phone_device_map
+    <set>
+      <if test="deviceId != null">
+         device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="trackDeviceId != null">
+        track_device_id = #{trackDeviceId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+         status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="gmtModified != null">
+           gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+      </if>
+   </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, device_id, track_device_id, status, gmt_create, gmt_modified
+    from phone_device_map
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByDeviceId" resultMap="BaseResultMap">
+    select id, device_id, track_device_id, status, gmt_create, gmt_modified
+    from phone_device_map
+    where device_id = #{deviceId,jdbcType=BIGINT} and track_device_id = #{trackDeviceId,jdbcType=BIGINT} and status = 0 limit 0,1
+  </select>
+  
+  <select id="getListByDeviceId" resultMap="BaseResultMap" >
+    select id, device_id, track_device_id,  status, gmt_create, gmt_modified
+    from phone_device_map where device_id = #{deviceId,jdbcType=BIGINT} and status = 0
+  </select>
+  
+   <select id="countListByDeviceId"  resultType="java.lang.Integer" >
+    select count(*)
+    from phone_device_map where device_id = #{deviceId,jdbcType=BIGINT} and status = 0
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, device_id, track_device_id, status, gmt_create, gmt_modified
+    from phone_device_map
+  </select>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.efurture.reader.mybatis.mapper.ArticleSourceMapper" >
+  <resultMap id="BaseResultMap" type="net.java.efurture.reader.mybatis.domain.ArticleDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="feed_id" property="feedId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="short_desc" property="shortDesc" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="file_key" property="fileKey" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <sql id="do_columns">
+    a.id, a.title, a.short_desc,    
+    a.feed_id, a.author, a.status, a.sort, a.url, a.file_key, a.gmt_create, a.gmt_modified
+  </sql>
+  
+  <sql id="dynamic_where">
+      <where>
+          <if test="title != null">
+             <![CDATA[ title = #{title} ]]>
+          </if>
+          <if test="feedId != null">
+             <![CDATA[ and  feed_id = #{feedId} ]]>
+          </if>
+         <if test="status != null">
+             <![CDATA[ and status =  #{status} ]]>
+          </if>
+    </where>
+  </sql>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete  from article_source  where id = #{id,jdbcType=BIGINT}
+   </delete>
+  
+  
+  <insert id="insert" parameterType="net.java.efurture.reader.mybatis.domain.ArticleDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into article_source (id, title, feed_id, author, 
+      status, sort, url, 
+      gmt_create, gmt_modified,  file_key, short_desc
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{feedId,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+       #{fileKey,jdbcType=VARCHAR}, #{shortDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="net.java.efurture.reader.mybatis.domain.ArticleDO" >
+    update article_source
+    <set>
+        <if test="title != null">
+            title = #{title,jdbcType=VARCHAR},
+        </if>
+         <if test="shortDesc != null">
+            short_desc =  #{shortDesc,jdbcType=VARCHAR},
+        </if>
+         <if test="author != null">
+            author = #{author,jdbcType=VARCHAR},
+        </if>
+         <if test="status != null">
+            status = #{status,jdbcType=TINYINT},
+        </if>
+         <if test="sort != null">
+           sort = #{sort,jdbcType=INTEGER},
+        </if>
+        <if test="url != null">
+            url = #{url,jdbcType=VARCHAR},
+        </if>
+        <if test="gmtModified != null">
+             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        </if>
+        <if test="fileKey != null">
+              file_key = #{fileKey,jdbcType=VARCHAR}
+        </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select  a.id, a.title, a.short_desc, a.file_key, a.feed_id, a.author, a.status, a.sort, a.url, a.gmt_create, a.gmt_modified
+    from article_source a
+    where a.id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+   <select id="countByQuery"  resultType="java.lang.Integer" parameterType="net.java.efurture.reader.mybatis.query.ArticleQuery">
+      select count(*)
+      from article_source
+      <include refid="dynamic_where"/>
+  </select>
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.efurture.reader.mybatis.query.ArticleQuery">
+        select  <include refid="do_columns"/>
+    from (
+        select id from  article_source
+        <include refid="dynamic_where"/>
+          order by  gmt_create desc, sort desc
+          limit #{startIndex}, #{pageSize}
+    )b, article_source a where b.id = a.id;
+  </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>baseUrl</key>
+	<string>http://huiduservice.lanxijun.com/</string>
+	<key>cdnServer</key>
+	<string>http://article.lanxijun.com/</string>
+	<key>appId</key>
+	<string>cuunyVcB1QBTmNUN</string>
+	<key>appSecret</key>
+	<string>Jvvz1TIK8NGILwXKM2dWRMm2NrcMzipl</string>
+	<key>net.java.efurture.judu.ArticleList</key>
+	<string>articleList.json</string>
+	<key>net.java.efurture.judu.ArticleDetail</key>
+	<string>articleDetail.json</string>
+	<key>net.java.efurture.judu.CategoryList</key>
+	<string>categoryList.json</string>
+	<key>net.java.efurture.judu.SearchCategory</key>
+	<string>searchCategory.json</string>
+	<key>net.java.efurture.judu.CategoryArticleList</key>
+	<string>categoryArticleList.json</string>
+	<key>net.java.efurture.judu.FavoriteCategoryArticleList</key>
+	<string>favoriteArticleList.json</string>
+</dict>
+</plist>

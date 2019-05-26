@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.efurture.reader.mybatis.mapper.FeedDOMapper" >
+  <resultMap id="BaseResultMap" type="net.java.efurture.reader.mybatis.domain.FeedDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="short_desc" property="shortDesc" jdbcType="VARCHAR" />
+    <result column="site" property="site" jdbcType="VARCHAR" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+   <sql id="do_columns">
+    f.id, f.url, f.status,  f.short_desc, f.site, f.tags, f.type, f.gmt_create, f.gmt_modified
+  </sql>
+  
+  <sql id="dynamic_where">
+      <where>
+          <if test="url != null">
+             <![CDATA[ url = #{url} ]]>
+          </if>
+          <if test="site != null">
+             <![CDATA[ and site =  #{site} ]]>
+          </if>
+          <if test="status != null">
+             <![CDATA[ and  status = #{status} ]]>
+          </if>
+    </where>
+  </sql>
+  
+  
+  
+  <!--  
+  <delete id="deleteByPrimaryKey">
+     delete from feed
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+ 
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update feed set status = -1, gmt_modified = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+   -->
+  
+  <insert id="insert" parameterType="net.java.efurture.reader.mybatis.domain.FeedDO" >
+    insert into feed (url, status,type, short_desc, site, tags, 
+      gmt_create, gmt_modified)
+    values (#{url,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},#{type,jdbcType=TINYINT}, #{shortDesc,jdbcType=VARCHAR}, 
+      #{site,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+      
+      <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="net.java.efurture.reader.mybatis.domain.FeedDO" >
+    update feed
+    <set>
+       <if test="url != null">
+          url = #{url,jdbcType=VARCHAR},
+       </if>
+       <if test="status != null">
+          status = #{status,jdbcType=TINYINT},
+       </if>
+       <if test="type != null">
+         type = #{type,jdbcType=TINYINT},
+       </if>
+        <if test="shortDesc != null">
+           short_desc = #{shortDesc,jdbcType=VARCHAR},
+       </if>
+         <if test="tags != null">
+            tags = #{tags,jdbcType=VARCHAR},
+         </if>
+         
+        <if test="site != null">
+          site = #{site,jdbcType=VARCHAR},
+       </if>
+        <if test="gmtModified != null">
+           gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+       </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="do_columns"/>
+    from feed f
+    where f.id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="do_columns"/>
+    from feed f
+  </select>
+  
+  
+  <select id="countByQuery"  resultType="java.lang.Integer" parameterType="net.java.efurture.reader.mybatis.query.FeedQuery">
+      select count(*)
+      from feed
+      <include refid="dynamic_where"/>
+  </select>
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.efurture.reader.mybatis.query.FeedQuery">
+        select  <include refid="do_columns"/>
+    from (
+        select id from  feed
+        <include refid="dynamic_where"/>
+          order by  id desc
+          limit #{startIndex}, #{pageSize}
+    )a, feed f where a.id = f.id;
+  </select>
+  
+  
+  
+  
+</mapper>

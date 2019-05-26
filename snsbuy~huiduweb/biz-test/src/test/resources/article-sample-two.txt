@@ -1,0 +1,64 @@
+<p>&nbsp;</p> 
+<p>基于机器学习的知道推荐—Enlister</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; — trisun</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enlister—最大的中文问答网站“百度知道”的问题推荐系统名字。这个由几个百度一线工程师研发的系统，自2012年1月上线以来，承担着百度知道千万级登录用户的问题推荐计算。</p> 
+<p>问题的开始</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 百度知道这样的问答社区型网站有个典型特点：有些用户在平台上提出问题，这些问题被另一些用户发现，其中有能力且有意愿的人回答了这几个问题。这几个问题及其解答在平台上沉淀下来，持续给后来有相关问题的搜索用户提供着解答，并激励着更多用户将自己的问题发布在平台上。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像这样的系统就是一个自生态系统，有人生产，有人消费（如图1）。若其中一个环节出现问题，都会导致这个生态异常。在现在的百度知道上，每日有几十万的新问题正在提出，又有近百万左右的在涌现，而浏览这些知识的人每天有上亿。最可能出问题的地方在于，问题被提出以后，解答无法满足甚至鲜有人问津，这不利于解决提问者的疑惑和知识的沉淀。</p> 
+<p><img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352266305111.jpg&amp;type=image%2Fjpeg&amp;width=328&amp;height=150" width="100%" /></p> 
+<p>图1</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面对这样问题，提升回答量是最直接的办法，回答量上升了，有价值的回答数量就会成比上涨。“回答”是一个高门槛的事，是contribute而非consume。排除这个问题，若用户本身在发现待回答问题上，还需要过高的付出（例如搜索、或按分类查找，如图2），那着实让大量有能力和意愿但不想花更多时间在查找问题上的人望而却步。而推荐，就是我们一把杀手锏。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352266902222.jpg&amp;type=image%2Fjpeg&amp;width=497&amp;height=339" width="100%" /></p> 
+<p>图2</p> 
+<p>说到推荐</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了推荐，就有了地基，如何设计楼宇有更多细节需要解决。做推荐需要密切结合产品，是恒古不变的真理。详细了解了知道的产品和目标后，我们提出了三个该系统核心：</p> 
+<p>1、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基于内容</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新问题一旦被提出，其解决就刻不容缓。高时效性要求了必须要以准确的内容分析为基础。</p> 
+<p>2、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CTR预估(Click Through Rate，点击率预估)</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了提升回答量，我们可考虑提升点击量，在用户量和回答率不变的基础上，间接提升了回答量。另外，CTR预估是我们擅长的技术，是我们的一大优势。</p> 
+<p>3、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 流式计算</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了适应新问题实时推送，我们设计了以问题数据为主数据流的推荐系统，保证了新问题在分钟级时效性内推送给目标（如图3）。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267145333.jpg&amp;type=image%2Fjpeg&amp;width=502&amp;height=101" width="100%" /></p> 
+<p>图3</p> 
+<p>&nbsp;</p> 
+<p>基于内容</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基于内容，意味我们需要用模型准确地描述“问题”和用户。考虑我们的推荐场景，一个新问题产生并被推荐给目标用户后，用户看到的是一个推荐列表与里面的问题标题（如图4）。此时，影响一个用户是否点击该问题的因素大致有：问题的具体内容、问题的分类及分类的回答活跃度、问题的地域性。其中，问题分类活跃度是一个实际观察得到的因素，某些分类，如情感，的回答活跃度会远远高于其他分类。而用户因素则有：用户内容偏好、回答时间、了解地域、最近行为偏向与最近推荐活跃度。其中，除了内容偏好与了解地域这类用户长期兴趣，一些短期偏好如时间、最近行为和最近对推荐的活跃度作为context信息也被考虑在内，以便提高推荐时机准确性。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267256444.jpg&amp;type=image%2Fjpeg&amp;width=494&amp;height=74" width="100%" /></p> 
+<p>图4</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 根据以上因素，我们对问题进行了如下建模：获取问题标题、切词并从标题中抽取中心词，构建plsa主题模型，利用分类器获取问题分类（分类结构可见知道主页上“问题分类”）与该分类最近点击、回答量，问题推荐的时间与问题地理关键词。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 而用户的建模包括了：用户在知道的个人中心定制的关键词、问题分类，用户历史回答问题标题中挖掘的中心词分布与权重及这些中心词的plsa模型，用户最近回答问题的时间，最近回答的问题标题，以及用户最近对推荐问题的点击与回答量。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 利用以上的数据，我们基本对问题、用户有了准确的描述。不仅涵盖了用户关注的问题且能解答的兴趣方向，同时刻画了最近用户的回答兴趣偏向与推荐场景信息。</p> 
+<p>CTR预估</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CTR预估自然就会使用到最大熵模型。该模型是经典的分类模型，在工业界有很多成功的使用案例，不仅可以进行线性计算以满足实时推荐需求，也不用考虑变量间独立性关系，可将所有的特征（包括context信息）构造成向量加入模型中。在我们的问题中，希望利用及其有限规模的设备来获得优质的推荐服务，自然就涉及到需要定期更新训练模型且样本数不能过大（训练本地化），特征维度不宜过高。因此，我们尽可能利用用户与问题模型构造组合的高级特征，以提高特征的覆盖度和泛化能力（如图5）。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267329555.jpg&amp;type=image%2Fjpeg&amp;width=499&amp;height=204" width="100%" /></p> 
+<p>图5</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 为了保持模型的新鲜性，我们自动更新模型周期为5天。在5天之内采样登录用户的几百万点击数据作为正样本。常规情况下，本可采用推荐列表中展示但未被点击的问题作为负样本，但预测结果并不令人满意，究其原因可能为：由于列表上问题方向由一定重复性，另外用户每天回答能力有上限，所以列表上其他问题可能由于用户未看到或已经不想再继续回答而未点击，不能代表其为真正的负样本。所以，负样本采用从与正样本时间一致的���一批问题里随机抽取。而正负样本比例则尝试了多种比例组合，最终1:1的比例在精确率(accuracy)上优于其他组合(如图6)。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267368666.jpg&amp;type=image%2Fjpeg&amp;width=302&amp;height=59" width="100%" /></p> 
+<p>图6</p> 
+<p>流式计算</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 流式计算，是相对于离线批量计算和当用户访问时实时为其计算推荐而言的。当新问题产生时，我们需要及时为其发现目标用户，并为这批目标用户构建新的推荐列表，包含了巨大的计算量及存储量。如图7，当我们在question pre-process端接收到新问题时，立即对其进行秒级建模运算；而在user action pre-process端，我们利用分布式计算实现了用户模型小时级更新，保持用户模型的新鲜性。通过BMQ系统（Baidu Message Queue）将建好模的问题发送到几十台click predict运算模块中（每台包含不同的用户分片）。click predict内部也是多线程并行流水线处理，保持高并发性（如图8）。当click predict接收到一个问题，会先根据问题中心词拉取用户倒排，获取一个该问题关联用户的候选集(pre-process)，淘汰部分不合格用户。在prediction阶段，对问题和关联到的全部用户（千量级）计算点击率，并淘汰低点击率。最后再re-rank阶段对用户原有列表插入该新问题。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267450777.jpg&amp;type=image%2Fjpeg&amp;width=387&amp;height=267" width="100%" /></p> 
+<p>图7</p> 
+<p>&nbsp;</p> 
+<p><img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267608888.jpg&amp;type=image%2Fjpeg&amp;width=473&amp;height=283" width="100%" /></p> 
+<p>图8</p> 
+<p>&nbsp;</p> 
+<p>列表构建</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在上一节最后提到了将一个新问题插入到原有用户列表中。若只简单考虑利用CTR值来进行排序，则使得整个列表看起来同质化比较严重：</p> 
+<p>1、&nbsp; 不少问题的标题很接近，在列表中排序也可能很邻近；</p> 
+<p>2、&nbsp; 用户可能包含几个兴趣点，但最终列表（特别头部）集中了大量问题只属于一个兴趣；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 实验表明，这些问题会严重影响用户体验，降低用户持续回答的欲望。我们则采用了一种多样化列表构建方法，以CTR为基本排序依据，但在列表头部尽可能的保证推荐的相关性。当一个新问题插入头部时，只要和周围标题不是非常接近都可插入，让用户能首先看到的列表前部看起来推荐很“准”；而在非头部区域，则加强对邻近问题相似过滤，让更多的兴趣点能得以展现，用户看起来觉得很“多样化”(如图9)。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=1352267670999.jpg&amp;type=image%2Fjpeg&amp;width=506&amp;height=240" width="100%" /></p> 
+<p>图9</p> 
+<p>&nbsp;</p> 
+<p>整体系统</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 除了以上几点需要考虑之外，我们做一个线上的推荐系统还需要考虑如spam屏蔽、某些业务逻辑、用户反馈等问题。如图，在多样化列表构建时，加入业务逻辑模块，过滤spam问题，对一些高价值问题的展现进行优先或对用户点击删除或不太喜欢的关键词进行屏蔽、降权。图10中RP部分是推荐引擎，iknow部分是产品线。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=13522677121000.jpg&amp;type=image%2Fjpeg&amp;width=420&amp;height=321" width="100%" /></p> 
+<p>图10</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 图11是系统上线前与上线后（201201）回答量的一个对比。原有推荐系统基于中心词计算距离相似进行推荐，日均回答量不足8万。Enlister上线后回答量持续攀升，至6月份后稳定在19万左右。</p> 
+<p>&nbsp;<img src="http://stblog.baidu-tech.com/wp-content/uploads/wp-display-data.php?filename=13522679351001.jpg&amp;type=image%2Fjpeg&amp;width=499&amp;height=191" width="100%" /></p> 
+<p>图11</p> 
+<p>&nbsp;</p> 
+<p>&nbsp;</p> 
+<p>蔡晶/文</p> 
+<br />

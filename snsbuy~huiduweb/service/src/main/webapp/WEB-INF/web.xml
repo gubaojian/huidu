@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>Archetype Created Web Application</display-name>
+
+	<!-- 共享的bean -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-biz-app-product-context-config.xml</param-value>
+	</context-param>
+	<!-- 初始化共享bean -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 允许访问的后缀名处理 -->
+	<filter>
+		<filter-name>allowSuffixFilter</filter-name>
+		<filter-class>net.java.efurture.judu.web.filter.AllowSuffixFilter</filter-class>
+		<init-param>
+		     <param-name>允许JSON后缀名访问</param-name>
+		     <param-value>json</param-value>
+		</init-param>
+		<init-param>
+		     <param-name>允许jsp后缀名访问</param-name>
+		     <param-value>jsp</param-value>
+		</init-param>
+		<init-param>
+		     <param-name>允许htm后缀名访问</param-name>
+		     <param-value>html</param-value>
+		</init-param>
+		<init-param>
+		     <param-name>允许html后缀名访问</param-name>
+		     <param-value>htm</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>allowSuffixFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>DenyParamNameFilter</filter-name>
+		<filter-class>net.java.efurture.judu.web.filter.DenyParamNameFilter</filter-class>
+	     <init-param>
+		     <param-name>format参数不允许</param-name>
+		     <param-value>format</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DenyParamNameFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- 密码生成 http://suijimimashengcheng.51240.com -->
+	<filter>
+		<filter-name>signFilter</filter-name>
+		<filter-class>net.java.efurture.judu.web.filter.SignFilter</filter-class>
+		
+		<!-- 版本iPhone 1.0.0 秘钥 -->
+		<init-param>
+			<param-name>cuunyVcB1QBTmNUN</param-name>
+			<param-value>WRitdgAvmGBe6h8LOLmrPS03mAWfxQIQ</param-value>
+		</init-param>
+		<!-- 版本iPhone无需时间有效性验证秘钥，主要用户CDN以及普通缓存，提高缓存命中率 -->
+		<init-param>
+			<param-name>hQCxinnGahes5iXQ</param-name>
+			<param-value>SkT3EGqVmjBih1LDL8T16dFywoaLHEKh</param-value>
+		</init-param>
+		
+		<!--  高强度秘钥 -->
+		<init-param>
+			<param-name>0ImwCbDHpa6jivRT8nQcolOdXdzgkCwW</param-name>
+			<param-value>zE7m3eKaiCJKrPVxmIRXF9PHwiEZTELpI9NE6hmMsuoI3w9b8aFUSukC3FIhqp8t</param-value>
+		</init-param>
+		
+		<!--  TA在哪使用的秘钥 -->
+		<init-param>
+			<param-name>TAXPRbyjnhQSZwvv</param-name>
+			<param-value>HMfBjNWnEh53WBpywu15ai4KDec6IYK3</param-value>
+		</init-param>
+		
+		 <!-- debug模式，关闭签名验证 -->
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>signFilter</filter-name>
+		<url-pattern>*.json</url-pattern>
+	</filter-mapping>
+	
+
+    <!-- 缓存过滤  -->
+	<filter>
+		<filter-name>lastModifiedFilter</filter-name>
+		<filter-class>com.samaxes.filter.LastModifiedFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>lastModifiedFilter</filter-name>
+		<url-pattern>/articleDetail.json</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>lastModifiedFilter</filter-name>
+		<url-pattern>/categoryArticleList.json</url-pattern>
+	</filter-mapping>
+	
+	<!-- Spring MVC -->
+	<servlet>
+		<servlet-name>Spring-MVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>Spring-MVC配置</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-MVC.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Spring-MVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+
+   <!--  
+	<error-page>
+		<error-code>404</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>406</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	-->
+</web-app>

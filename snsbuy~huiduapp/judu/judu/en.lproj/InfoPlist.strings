@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+CFBundleDisplayName="汇读";
+CFBundleName="汇读";
+CFBundleVersion="1.6.0";

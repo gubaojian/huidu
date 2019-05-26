@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.LocationDOMapper">
+	<resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.LocationDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="longitude" property="longitude" jdbcType="DOUBLE" />
+		<result column="latitude" property="latitude" jdbcType="DOUBLE" />
+		<result column="poi" property="poi" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="BIGINT" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="location_token" property="locationToken"
+			jdbcType="VARCHAR" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="CountResultMap" type="net.java.mapyou.mybatis.domain.vo.CountVO">
+		<result column="device_id" property="key" jdbcType="BIGINT" />
+		<result column="location_count" property="count" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="dynamic_where">
+      <where>
+          <if test="deviceId != null">
+             <![CDATA[ device_id = #{deviceId} ]]>
+          </if>
+          
+          <if test="deviceIds != null">
+              device_id in (
+                <foreach collection="deviceIds" item="item" separator="," >
+                    #{item} 
+                </foreach>
+              )
+          </if>
+       
+           <if test="gmtCreateStart != null">
+             <![CDATA[ and gmt_create >=  #{gmtCreateStart} ]]>
+          </if>
+          
+           <if test="gmtCreateEnd != null">
+             <![CDATA[ and gmt_create <=  #{gmtCreateEnd} ]]>
+          </if>
+          
+           <if test="status != null">
+             <![CDATA[ and status =  #{status} ]]>
+          </if>
+          <if test="type != null">
+             <![CDATA[ and type =  #{type} ]]>
+          </if>
+    </where>
+  </sql>
+	
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from phone_device_location
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="net.java.mapyou.mybatis.domain.LocationDO">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into phone_device_location (id, longitude, latitude, poi,
+		device_id,  type,
+		status, location_token, gmt_create,
+		gmt_modify)
+		values (#{id,jdbcType=BIGINT}, #{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE}, #{poi,jdbcType=VARCHAR},
+		#{deviceId,jdbcType=BIGINT},
+		#{type,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT}, #{locationToken,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+		#{gmtModify,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.LocationDO">
+		update phone_device_location
+		<set>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=DOUBLE},
+			</if>
+			<if test="poi != null">
+				poi = #{poi,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				device_id = #{deviceId,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="locationToken != null">
+				location_token = #{locationToken,jdbcType=VARCHAR},
+			</if>
+			<if test="gmtModify != null">
+				gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select id, longitude, latitude, poi, device_id, type,
+		status, location_token,
+		gmt_create, gmt_modify
+		from phone_device_location
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="countByQuery"  resultType="java.lang.Integer" parameterType="net.java.mapyou.mybatis.query.LocationQuery">
+      select count(*)
+      from phone_device_location
+      <include refid="dynamic_where"/>
+    </select>
+	<select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.mapyou.mybatis.query.LocationQuery">
+		select a.id, a.longitude, a.latitude, a.poi, a.device_id, a.type,
+		a.status, a.location_token,
+		a.gmt_create, a.gmt_modify
+		from (select id from  phone_device_location 
+		    <include refid="dynamic_where"/>
+             order by  gmt_create desc
+             limit #{startIndex}, #{pageSize}
+          )b, phone_device_location a where b.id = a.id;
+	</select>
+	<select id="groupCountByQuery"  resultMap="CountResultMap" parameterType="net.java.mapyou.mybatis.query.LocationQuery">
+      select device_id, count(*) as location_count
+      from phone_device_location
+      <include refid="dynamic_where"/>
+      group by device_id
+    </select>
+</mapper>

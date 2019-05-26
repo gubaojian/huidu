@@ -1,0 +1,54 @@
+/* 
+  Localized.strings
+  judu
+
+  Created by lurina on 13-7-28.
+  Copyright (c) 2013年 baobao. All rights reserved.
+*/
+"AppName" = "汇读";
+"Home" = "首页";
+"Favorite" = "发现";
+"MyFavorite" = "关注";
+"MyFavoriteTitle" = "我的关注";
+"About"="关于";
+"MyHuidu"="我的汇读";
+"CopyUrlTitle" = "复制链接";
+"Open in Safari" = "在浏览器中打开";
+"ArticleFontSize" = "阅读字体大小";
+"AutoDownloadOfflineTips" = "Wifi自动下载首页";
+"AbountModuleMyApps" = "我的其它应用";
+"CommonProductsTitle" = "产品列表";
+"AbountModuleListShareWithFriends" = "分享给朋友";
+"AbountModuleListShareWithFriendsContentIosSix" = "汇读是一个非常好的专业阅读工具。";
+"AbountModuleListGiveGood" = "评价此应用";
+"AbountModuleListBugReports" = "Bug反馈及建议";
+"AbountModuleListBugReportsSubject" = "Bug反馈及建议(汇读)";
+"AbountModuleListContactMe" = "联系作者";
+"AbountModuleListContactMeSubject" = "联系作者(汇读)";
+"AbountModuleListAboutEverTrackNavigationTitle" = "关于汇读";
+"AbountModuleListAboutEverTrack" = "关于汇读";
+"AbountModuleListAboutWebTitle"  = "汇读简介";
+"CommonMessagePrivacyPolicy" = "隐私声明";
+"CommonMessageCopyright" = "版权声明";
+"CommonMessageVersion" = "版本号 1.5.6";
+"CommonButtonTextBack" = " 返回 ";
+"CommonButtonTextTips" = "提示";
+"CommonButtonTextSettings" = "设置";
+"CommonButtonTextHome" = "主页";
+"CommonMessagePurchaseFailed" = "提示";
+"CommonButtonTextOk" = "确定";
+"CommonMessageRemoveAd" = "去除广告";
+"CommonMessageAlreadyBuyedService" = "您已购买此服务，无需重复购买";
+"CommonMessageProcessing" = "正在请求，请稍后";
+"Loading..." = "汇读";
+"HuiduSlogan" = "在阅读中成长";
+"Cancel" = "取消";
+"FontSizeSmall" = "小";
+"FontSizeNormal" = "中";
+"FontSizeLarge" = "大";
+"FontSizeLargest" = "特大";
+"SettingFontTips" = "设置阅读字体大小";
+"AddArticleToCollect" = "文章收藏成功";
+"RemoveArticleFromCollect" = "取消收藏成功";
+
+

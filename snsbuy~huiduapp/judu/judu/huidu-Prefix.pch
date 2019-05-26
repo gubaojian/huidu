@@ -1,0 +1,28 @@
+//
+// Prefix header for all source files of the 'judu' target in the 'judu' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#define __AVAILABILITY_TOO_NEW __attribute__((deprecated("TOO NEW!"))) __attribute__((weak_import))
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+#undef __AVAILABILITY_INTERNAL__IPHONE_6_0
+#define __AVAILABILITY_INTERNAL__IPHONE_6_0 __AVAILABILITY_TOO_NEW
+#endif
+
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+#undef __AVAILABILITY_INTERNAL__IPHONE_7_0
+#define __AVAILABILITY_INTERNAL__IPHONE_7_0 __AVAILABILITY_TOO_NEW
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+ 

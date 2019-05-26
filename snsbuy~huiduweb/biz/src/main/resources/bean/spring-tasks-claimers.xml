@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jee="http://www.springframework.org/schema/jee"
+        xmlns:lang="http://www.springframework.org/schema/lang"
+        xmlns:jms="http://www.springframework.org/schema/jms"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+        default-autowire="byName">
+
+
+
+<!-- 普通博客同步任务认领者 -->
+<bean id="normalFeedAritlceSynTaskClaimer" class="net.java.efurture.reader.biz.timer.task.claimer.impl.NormalFeedAritlceSynTaskClaimer"></bean>
+
+<!--  热门博客同步认领者 -->
+<bean id="hotFeedArticleSynTaskClaimer" class="net.java.efurture.reader.biz.timer.task.claimer.impl.HotFeedArticleSynTaskClaimer"></bean>
+
+<!-- 新闻博客同步认领者 -->
+<bean id="newsFeedArticleSynTaskClaimer" class="net.java.efurture.reader.biz.timer.task.claimer.impl.NewsFeedArticleSynTaskClaimer"></bean>
+
+
+<!-- 普通博客同步任务 -->
+<bean id="normalFeedSynTask" class="net.java.efurture.reader.biz.timer.task.impl.DefaultClaimerTask">
+   <property name="type" value="0"/>
+   <property name="taskClaimer">  
+     <ref bean="normalFeedAritlceSynTaskClaimer"/>
+   </property>
+</bean>
+
+<!-- 热门博客同步任务 -->
+<bean id="hotFeedArticleSynTask" class="net.java.efurture.reader.biz.timer.task.impl.DefaultClaimerTask">
+   <property name="type" value="1"/>
+   <property name="taskClaimer">
+     <ref bean="hotFeedArticleSynTaskClaimer"/>
+   </property>
+</bean>
+
+<!-- 新闻博客同步 -->
+<bean id="newsFeedArticleSynTask" class="net.java.efurture.reader.biz.timer.task.impl.DefaultClaimerTask">
+   <property name="type" value="2"/>
+   <property name="taskClaimer">
+     <ref bean="newsFeedArticleSynTaskClaimer"/>
+   </property>
+</bean>
+
+<!-- 文章迁移接口 -->
+<bean id="upgrageArticleTask" class="net.java.efurture.reader.biz.timer.task.impl.UpgradeArticleTask"></bean>
+
+
+<!-- 类目排序更新接口 -->
+<bean id="updateCategorySortTask" class="net.java.efurture.reader.biz.timer.task.impl.UpdateCategorySortTask"></bean>
+
+
+
+
+
+</beans>

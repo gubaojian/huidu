@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.ShortUrlDOMapper">
+	<resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.ShortUrlDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from short_url
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="net.java.mapyou.mybatis.domain.ShortUrlDO">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into short_url (id, url, token, status,
+		gmt_create, gmt_modified)
+		values (#{id,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.ShortUrlDO">
+		update short_url
+		<set>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="token != null">
+				token = #{token,jdbcType=VARCHAR},
+			</if>
+			<if test="gmtModified != null">
+				gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select id, url, token, status, gmt_create, gmt_modified
+		from short_url
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByToken" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select id, url, token, status, gmt_create, gmt_modified
+		from short_url
+		where token = #{token,jdbcType=VARCHAR} and status = 0 limit 0, 1
+	</select>
+
+	<select id="selectByUrl" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select id, url, token, status, gmt_create, gmt_modified
+		from short_url
+		where url = #{url,jdbcType=VARCHAR} limit 0, 1
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, url, token, status, gmt_create, gmt_modified
+		from short_url
+	</select>
+</mapper>

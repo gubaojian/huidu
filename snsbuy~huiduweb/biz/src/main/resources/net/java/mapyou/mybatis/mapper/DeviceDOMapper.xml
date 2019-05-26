@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.DeviceDOMapper">
+	<resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.DeviceDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="track_token" property="trackToken" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="push_token" property="pushToken" jdbcType="VARCHAR" />
+		<result column="token" property="token"
+			jdbcType="VARCHAR" />
+		<result column="os" property="os" jdbcType="TINYINT" />
+		<result column="lang" property="lang" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="dynamic_where">
+      <where>
+          <if test="gmtCreateStart != null">
+             <![CDATA[ gmt_create >= #{gmtCreateStart} ]]>
+          </if>
+          <if test="gmtCreateEnd != null">
+             <![CDATA[ and  gmt_create <= #{gmtCreateEnd} ]]>
+          </if>
+         <if test="status != null">
+             <![CDATA[ and status =  #{status} ]]>
+          </if>
+           <if test="idList != null">
+              id in (
+                <foreach collection="idList" item="item" separator="," >
+                    #{item} 
+                </foreach>
+              )
+          </if>
+    </where>
+  </sql>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from phone_device
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="net.java.mapyou.mybatis.domain.DeviceDO">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into phone_device (id, track_token, name, push_token,
+		token, os, lang,
+		status, gmt_create, gmt_modify
+		)
+		values (#{id,jdbcType=BIGINT}, #{trackToken,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{pushToken,jdbcType=VARCHAR},
+		#{token,jdbcType=VARCHAR}, #{os,jdbcType=TINYINT},
+		#{lang,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.DeviceDO">
+		update phone_device
+		<set>
+			<if test="trackToken != null">
+				track_token = #{trackToken,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pushToken != null">
+				push_token = #{pushToken,jdbcType=VARCHAR},
+			</if>
+			<if test=" token != null">
+				token = #{token,jdbcType=VARCHAR},
+			</if>
+			<if test=" os != null">
+				os = #{os,jdbcType=TINYINT},
+			</if>
+			<if test="lang != null">
+				lang = #{lang,jdbcType=VARCHAR},
+			</if>
+			<if test="gmtModify != null">
+				gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select id, track_token, name, push_token, token, os, lang, status,
+		gmt_create,
+		gmt_modify
+		from phone_device
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	
+	 <select id="countByQuery"  resultType="java.lang.Integer" parameterType="net.java.mapyou.mybatis.query.DeviceQuery">
+      select count(*)
+      from phone_device
+      <include refid="dynamic_where"/>
+  </select>
+	<select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.mapyou.mybatis.query.DeviceQuery">
+		select a.id, a.track_token, a.name, a.push_token, a.token, a.os, a.lang, a.status,
+		a.gmt_create, a.gmt_modify
+		from (select id from  phone_device
+		    <include refid="dynamic_where"/>
+             order by  gmt_create desc
+             limit #{startIndex}, #{pageSize}
+          )b, phone_device a where b.id = a.id;
+	</select>
+	
+	<select id="selectByTrackerDeviceId" resultMap="BaseResultMap">
+		select a.id, a.track_token, a.name, a.push_token, a.token, a.os, a.lang, a.status,
+		a.gmt_create, a.gmt_modify
+		from (select track_device_id as id from  phone_device_map
+		    where device_id = #{deviceId,jdbcType=BIGINT} and status = 0
+             order by  gmt_create desc
+          )b, phone_device a where b.id = a.id;
+	</select>
+	
+	<select id="selectByTrackToken" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select id, track_token, name, push_token, token, os, lang, status,
+		gmt_create,
+		gmt_modify
+		from phone_device
+		where track_token = #{trackToken,jdbcType=BIGINT}
+	</select>
+	
+</mapper>

@@ -1,0 +1,616 @@
+<div style="margin-top: 15px; font-style: italic">
+<p><strong>原创文章，转载请注明：</strong> 转载自<a href="http://www.pagefault.info/">pagefault</a></p>
+<p><strong>本文链接地址:</strong> <a href="http://www.pagefault.info/?p=448">linux 内核tcp拥塞处理(二)</a></p>
+</div>
+<p>这篇接的是我最早在javaeye的那篇blog.  http://simohayha.iteye.com/blog/614258</p>
+<p>首先我们要知道在linux下分为5个拥塞状态，定义如下:</p>
+<pre class="brush: cpp; title: ; notranslate">
+enum tcp_ca_state {
+	TCP_CA_Open = 0,
+#define TCPF_CA_Open	(1&#60;&#60;TCP_CA_Open)
+	TCP_CA_Disorder = 1,
+#define TCPF_CA_Disorder (1&#60;&#60;TCP_CA_Disorder)
+	TCP_CA_CWR = 2,
+#define TCPF_CA_CWR	(1&#60;&#60;TCP_CA_CWR)
+	TCP_CA_Recovery = 3,
+#define TCPF_CA_Recovery (1&#60;&#60;TCP_CA_Recovery)
+	TCP_CA_Loss = 4
+#define TCPF_CA_Loss	(1&#60;&#60;TCP_CA_Loss)
+}
+</pre>
+<p>TCP_CA_OPEN这个就是初始状态，也就是没有检测到任何拥塞的情况.<br />
+TCP_CA_Disorder 顾名思义，这个状态就是当第一次由于收到SACK或者重复的ack而检测到拥塞时，就进入这个状态.<br />
+TCP_CA_CWR   由于一些拥塞通知事件而导致拥塞窗口减小,然后就会进入这个状态。比如ECN，ICMP，本地设备拥塞。<br />
+TCP_CA_Recovery 当CWND减小<br />
+TCP_CA_Loss 超时或者SACK被拒绝，此时表示数据包丢失，因此进入这个状态.<br />
+<span id="more-448"></span><br />
+在分析代码之前，先来看一个最重要的数据结构，那就是tcp_sock,这个结构就是下面的拥塞控制所操作的核心数据结构.注释都是非常详细.</p>
+<pre class="brush: cpp; title: ; notranslate">
+struct tcp_sock {
+	/* inet_connection_sock has to be the first member of tcp_sock */
+	struct inet_connection_sock	inet_conn;
+	u16	tcp_header_len;	/* Bytes of tcp header to send		*/
+	u16	xmit_size_goal_segs; /* Goal for segmenting output packets */
+
+/*
+ *	Header prediction flags
+ *	0x5?10 &#60;&#60; 16 + snd_wnd in net byte order
+ */
+	__be32	pred_flags;
+
+/*
+ *	RFC793 variables by their proper names. This means you can
+ *	read the code and the spec side by side (and laugh ...)
+ *	See RFC793 and RFC1122. The RFC writes these in capitals.
+ */
+ 	u32	rcv_nxt;	/* What we want to receive next 	*/
+	u32	copied_seq;	/* Head of yet unread data		*/
+	u32	rcv_wup;	/* rcv_nxt on last window update sent	*/
+ 	u32	snd_nxt;	/* Next sequence we send		*/
+
+ 	u32	snd_una;	/* First byte we want an ack for	*/
+ 	u32	snd_sml;	/* Last byte of the most recently transmitted small packet */
+	u32	rcv_tstamp;	/* timestamp of last received ACK (for keepalives) */
+	u32	lsndtime;	/* timestamp of last sent data packet (for restart window) */
+
+	/* Data for direct copy to user */
+	struct {
+		struct sk_buff_head	prequeue;
+		struct task_struct	*task;
+		struct iovec		*iov;
+		int			memory;
+		int			len;
+#ifdef CONFIG_NET_DMA
+		/* members for async copy */
+		struct dma_chan		*dma_chan;
+		int			wakeup;
+		struct dma_pinned_list	*pinned_list;
+		dma_cookie_t		dma_cookie;
+#endif
+	} ucopy;
+
+	u32	snd_wl1;	/* Sequence for window update		*/
+	u32	snd_wnd;	/* The window we expect to receive	*/
+	u32	max_window;	/* Maximal window ever seen from peer	*/
+	u32	mss_cache;	/* Cached effective mss, not including SACKS */
+
+	u32	window_clamp;	/* Maximal window to advertise		*/
+	u32	rcv_ssthresh;	/* Current window clamp			*/
+
+	u32	frto_highmark;	/* snd_nxt when RTO occurred */
+	u16	advmss;		/* Advertised MSS			*/
+	u8	frto_counter;	/* Number of new acks after RTO */
+	u8	nonagle     : 4,/* Disable Nagle algorithm?             */
+		thin_lto    : 1,/* Use linear timeouts for thin streams */
+		thin_dupack : 1,/* Fast retransmit on first dupack      */
+		repair      : 1,
+		unused      : 1;
+	u8	repair_queue;
+	u8	do_early_retrans:1,/* Enable RFC5827 early-retransmit  */
+		early_retrans_delayed:1; /* Delayed ER timer installed */
+
+/* RTT measurement */
+	u32	srtt;		/* smoothed round trip time &#60;&#60; 3	*/
+	u32	mdev;		/* medium deviation			*/
+	u32	mdev_max;	/* maximal mdev for the last rtt period	*/
+	u32	rttvar;		/* smoothed mdev_max			*/
+	u32	rtt_seq;	/* sequence number to update rttvar	*/
+
+	u32	packets_out;	/* Packets which are &#34;in flight&#34;	*/
+	u32	retrans_out;	/* Retransmitted packets out		*/
+
+	u16	urg_data;	/* Saved octet of OOB data and control flags */
+	u8	ecn_flags;	/* ECN status bits.			*/
+	u8	reordering;	/* Packet reordering metric.		*/
+	u32	snd_up;		/* Urgent pointer		*/
+
+	u8	keepalive_probes; /* num of allowed keep alive probes	*/
+/*
+ *      Options received (usually on last packet, some only on SYN packets).
+ */
+	struct tcp_options_received rx_opt;
+
+/*
+ *	Slow start and congestion control (see also Nagle, and Karn &#38; Partridge)
+ */
+ 	u32	snd_ssthresh;	/* Slow start size threshold		*/
+ 	u32	snd_cwnd;	/* Sending congestion window		*/
+	u32	snd_cwnd_cnt;	/* Linear increase counter		*/
+	u32	snd_cwnd_clamp; /* Do not allow snd_cwnd to grow above this */
+	u32	snd_cwnd_used;
+	u32	snd_cwnd_stamp;
+	u32	prior_cwnd;	/* Congestion window at start of Recovery. */
+	u32	prr_delivered;	/* Number of newly delivered packets to
+				 * receiver in Recovery. */
+	u32	prr_out;	/* Total number of pkts sent during Recovery. */
+
+ 	u32	rcv_wnd;	/* Current receiver window		*/
+	u32	write_seq;	/* Tail(+1) of data held in tcp send buffer */
+	u32	pushed_seq;	/* Last pushed seq, required to talk to windows */
+	u32	lost_out;	/* Lost packets			*/
+	u32	sacked_out;	/* SACK'd packets			*/
+	u32	fackets_out;	/* FACK'd packets			*/
+	u32	tso_deferred;
+	u32	bytes_acked;	/* Appropriate Byte Counting - RFC3465 */
+
+	/* from STCP, retrans queue hinting */
+	struct sk_buff* lost_skb_hint;
+	struct sk_buff *scoreboard_skb_hint;
+	struct sk_buff *retransmit_skb_hint;
+
+	struct sk_buff_head	out_of_order_queue; /* Out of order segments go here */
+
+	/* SACKs data, these 2 need to be together (see tcp_options_write) */
+	struct tcp_sack_block duplicate_sack[1]; /* D-SACK block */
+	struct tcp_sack_block selective_acks[4]; /* The SACKS themselves*/
+
+	struct tcp_sack_block recv_sack_cache[4];
+
+	struct sk_buff *highest_sack;   /* skb just after the highest
+					 * skb with SACKed bit set
+					 * (validity guaranteed only if
+					 * sacked_out &#62; 0)
+					 */
+
+	int     lost_cnt_hint;
+	u32     retransmit_high;	/* L-bits may be on up to this seqno */
+
+	u32	lost_retrans_low;	/* Sent seq after any rxmit (lowest) */
+
+	u32	prior_ssthresh; /* ssthresh saved at recovery start	*/
+	u32	high_seq;	/* snd_nxt at onset of congestion	*/
+
+	u32	retrans_stamp;	/* Timestamp of the last retransmit,
+				 * also used in SYN-SENT to remember stamp of
+				 * the first SYN. */
+	u32	undo_marker;	/* tracking retrans started here. */
+	int	undo_retrans;	/* number of undoable retransmissions. */
+	u32	total_retrans;	/* Total retransmits for entire connection */
+
+	u32	urg_seq;	/* Seq of received urgent pointer */
+	unsigned int		keepalive_time;	  /* time before keep alive takes place */
+	unsigned int		keepalive_intvl;  /* time interval between keep alive probes */
+
+	int			linger2;
+
+/* Receiver side RTT estimation */
+	struct {
+		u32	rtt;
+		u32	seq;
+		u32	time;
+	} rcv_rtt_est;
+
+/* Receiver queue space */
+	struct {
+		int	space;
+		u32	seq;
+		u32	time;
+	} rcvq_space;
+
+/* TCP-specific MTU probe information. */
+	struct {
+		u32		  probe_seq_start;
+		u32		  probe_seq_end;
+	} mtu_probe;
+
+#ifdef CONFIG_TCP_MD5SIG
+/* TCP AF-Specific parts; only used by MD5 Signature support so far */
+	const struct tcp_sock_af_ops	*af_specific;
+
+/* TCP MD5 Signature Option information */
+	struct tcp_md5sig_info	__rcu *md5sig_info;
+#endif
+
+	/* When the cookie options are generated and exchanged, then this
+	 * object holds a reference to them (cookie_values-&#62;kref).  Also
+	 * contains related tcp_cookie_transactions fields.
+	 */
+	struct tcp_cookie_values  *cookie_values;
+}
+</pre>
+<p>这里最主要的函数就是tcp_fastretrans_alert，进入这个函数的条件:</p>
+<blockquote><p> * &#8211; each incoming ACK, if state is not &#8220;Open&#8221;<br />
+ * &#8211; when arrived ACK is unusual, namely:<br />
+ *	* SACK<br />
+ *	* Duplicate ACK.<br />
+ *	* ECN ECE.</p></blockquote>
+</blockquote>
+<p>接下来就看这几个状态是如何变迁的，tcp_fastretrans_alert这个函数我以前的blog有分析过，因此我这里只是用来描述状态变迁相关的函数。</p>
+<p>首先状态变迁分为两部分，一部分是进入某些状态，一部分是从某些状态跳出来。首先来分析状态的默认处理，也就是假设是处于Open状态，然后收到了异常的ACK,此时代码是如何处理的.。</p>
+<p>这里要注意TCP reno算法是用快重传来模拟SACK，所以如果关闭了SACK那么就需要模拟SACK.</p>
+<pre class="brush: cpp; title: ; notranslate">
+	switch (icsk-&#62;icsk_ca_state) {
+...........................................................................................
+		/* Loss is undone; fall through to processing in Open state. */
+// 进入下面则有可能是　disorder,open, cwr,loss 这几个状态.
+	default:
+//如果SACK关闭，那么就需要模拟SACK
+		if (tcp_is_reno(tp)) {
+			if (flag &#38; FLAG_SND_UNA_ADVANCED)
+				tcp_reset_reno_sack(tp);
+			if (is_dupack)
+				tcp_add_reno_sack(sk);
+		}
+//从DSACK恢复
+		if (icsk-&#62;icsk_ca_state &#60;= TCP_CA_Disorder)
+			tcp_try_undo_dsack(sk);
+//是否需要进入revocer状态。
+		if (!tcp_time_to_recover(sk, flag)) {
+//如果不需要，则尝试着检测是否需要进入CWR或者Disorder状态.
+			tcp_try_to_open(sk, flag);
+			return;
+		}
+
+		/* MTU probe failure: don't reduce cwnd */
+		if (icsk-&#62;icsk_ca_state &#60; TCP_CA_CWR &#38;&#38;
+		    icsk-&#62;icsk_mtup.probe_size &#38;&#38;
+		    tp-&#62;snd_una == tp-&#62;mtu_probe.probe_seq_start) {
+			tcp_mtup_probe_failed(sk);
+			/* Restores the reduction we did in tcp_mtup_probe() */
+			tp-&#62;snd_cwnd++;
+			tcp_simple_retransmit(sk);
+			return;
+		}
+//最终进入recovery状态
+		/* Otherwise enter Recovery state */
+		tcp_enter_recovery(sk, (flag &#38; FLAG_ECE));
+		fast_rexmit = 1;
+	}
+</pre>
+<p>上面有三个函数需要详细分析，分别是tcp_time_to_recover,tcp_try_to_open以及tcp_enter_recovery。<br />
+首先是tcp_time_to_recover,这个函数主要是用来判断是否需要进入recover状态。</p>
+<p>首先来描述下几个基本概念，一个就是重定序长度(reordering),这个值的意思是当有大于１个的SACK之后，相差最大的两个SACK之间的距离,比如第一个SACK通知的序列是7,第二个是2，那么reordering值就是6.而FACK_OUT表示sack确认的最大的序列号。</p>
+<pre class="brush: cpp; title: ; notranslate">
+static bool tcp_time_to_recover(struct sock *sk, int flag)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+	__u32 packets_out;
+
+	/* Do not perform any recovery during F-RTO algorithm */
+	if (tp-&#62;frto_counter)
+		return false;
+
+	/* Trick#1: The loss is proven. */
+	if (tp-&#62;lost_out)
+		return true;
+
+	/* Not-A-Trick#2 : Classic rule... */
+//如果SACK的最大序列号大于重定序长度，那么说明重定序序列中头部的数据一定丢失，那么就需要进入recover状态.
+	if (tcp_dupack_heuristics(tp) &#62; tp-&#62;reordering)
+		return true;
+
+	/* Trick#3 : when we use RFC2988 timer restart, fast
+	 * retransmit can be triggered by timeout of queue head.
+	 */
+//如果数据包超时(因为每次重传定时器都会被重置),则进入recover状态.
+	if (tcp_is_fack(tp) &#38;&#38; tcp_head_timedout(sk))
+		return true;
+
+	/* Trick#4: It is still not OK... But will it be useful to delay
+	 * recovery more?
+	 */
+	packets_out = tp-&#62;packets_out;
+//这里不太理解什么意思
+	if (packets_out &#60;= tp-&#62;reordering &#38;&#38;
+	    tp-&#62;sacked_out &#62;= max_t(__u32, packets_out/2, sysctl_tcp_reordering) &#38;&#38;
+	    !tcp_may_send_now(sk)) {
+		/* We have nothing to send. This connection is limited
+		 * either by receiver window or by application.
+		 */
+		return true;
+	}
+
+	/* If a thin stream is detected, retransmit after first
+	 * received dupack. Employ only if SACK is supported in order
+	 * to avoid possible corner-case series of spurious retransmissions
+	 * Use only if there are no unsent data.
+	 */
+//处理thin stream
+	if ((tp-&#62;thin_dupack || sysctl_tcp_thin_dupack) &#38;&#38;
+	    tcp_stream_is_thin(tp) &#38;&#38; tcp_dupack_heuristics(tp) &#62; 1 &#38;&#38;
+	    tcp_is_sack(tp) &#38;&#38; !tcp_send_head(sk))
+		return true;
+
+	/* Trick#6: TCP early retransmit, per RFC5827.  To avoid spurious
+	 * retransmissions due to small network reorderings, we implement
+	 * Mitigation A.3 in the RFC and delay the retransmission for a short
+	 * interval if appropriate.
+	 */
+//处理early retransmit
+	if (tp-&#62;do_early_retrans &#38;&#38; !tp-&#62;retrans_out &#38;&#38; tp-&#62;sacked_out &#38;&#38;
+	    (tp-&#62;packets_out == (tp-&#62;sacked_out + 1) &#38;&#38; tp-&#62;packets_out &#60; 4) &#38;&#38;
+	    !tcp_may_send_now(sk))
+		return !tcp_pause_early_retransmit(sk, flag);
+
+//最终返回false.
+	return false;
+}
+</pre>
+<p>然后来看tcp_try_to_open方法,这个函数名字有点问题，它的主要作用是检测是否需要进入CWR或者Disorder状态.</p>
+<pre class="brush: cpp; title: ; notranslate">
+static void tcp_try_to_open(struct sock *sk, int flag)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+
+	tcp_verify_left_out(tp);
+
+	if (!tp-&#62;frto_counter &#38;&#38; !tcp_any_retrans_done(sk))
+		tp-&#62;retrans_stamp = 0;
+//如果接受到ECE那么就进入cwr状态.
+	if (flag &#38; FLAG_ECE)
+		tcp_enter_cwr(sk, 1);
+
+	if (inet_csk(sk)-&#62;icsk_ca_state != TCP_CA_CWR) {
+//检测是否需要进入disorder状态，否则进入open状态.
+		tcp_try_keep_open(sk);
+//如果不是open状态，则修改拥塞窗口
+		if (inet_csk(sk)-&#62;icsk_ca_state != TCP_CA_Open)
+			tcp_moderate_cwnd(tp);
+	} else {
+//减小拥塞窗口
+		tcp_cwnd_down(sk, flag);
+	}
+}
+</pre>
+<p>然后来看tcp__try_keep_open方法，这个方法就是判断是否进入Disorder状态.条件很简单，那就是要么有SACK的段或者有丢失的段，要么有任何重传的段，那么就进入Disorder状态。</p>
+<pre class="brush: cpp; title: ; notranslate">
+static void tcp_try_keep_open(struct sock *sk)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+//默认是进入open状态
+	int state = TCP_CA_Open;
+//进入Disorder状态
+	if (tcp_left_out(tp) || tcp_any_retrans_done(sk))
+		state = TCP_CA_Disorder;
+
+	if (inet_csk(sk)-&#62;icsk_ca_state != state) {
+		tcp_set_ca_state(sk, state);
+		tp-&#62;high_seq = tp-&#62;snd_nxt;
+	}
+}
+</pre>
+<p>然后就是tcp_enter_recovery，这个函数主要就是用来进入recover状态，然后设置相关的域。</p>
+<p>high_seq : 进入recover状态时的snd_nxt.<br />
+undo_marker: 表示进入revover状态时的snd_una<br />
+undo_retrans: 表示进入revover状态时的重传段个数</p>
+<pre class="brush: cpp; title: ; notranslate">
+static void tcp_enter_recovery(struct sock *sk, bool ece_ack)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+	int mib_idx;
+
+	if (tcp_is_reno(tp))
+		mib_idx = LINUX_MIB_TCPRENORECOVERY;
+	else
+		mib_idx = LINUX_MIB_TCPSACKRECOVERY;
+
+	NET_INC_STATS_BH(sock_net(sk), mib_idx);
+//更新相关域
+	tp-&#62;high_seq = tp-&#62;snd_nxt;
+	tp-&#62;prior_ssthresh = 0;
+	tp-&#62;undo_marker = tp-&#62;snd_una;
+	tp-&#62;undo_retrans = tp-&#62;retrans_out;
+
+	if (inet_csk(sk)-&#62;icsk_ca_state &#60; TCP_CA_CWR) {
+		if (!ece_ack)
+//保存当前的ssthresh,以便于后续恢复
+			tp-&#62;prior_ssthresh = tcp_current_ssthresh(sk);
+//更新slow start的阈值.
+		tp-&#62;snd_ssthresh = inet_csk(sk)-&#62;icsk_ca_ops-&#62;ssthresh(sk);
+		TCP_ECN_queue_cwr(tp);
+	}
+
+	tp-&#62;bytes_acked = 0;
+	tp-&#62;snd_cwnd_cnt = 0;
+//保存拥塞窗口
+	tp-&#62;prior_cwnd = tp-&#62;snd_cwnd;
+	tp-&#62;prr_delivered = 0;
+	tp-&#62;prr_out = 0;
+//进入recovery状态
+	tcp_set_ca_state(sk, TCP_CA_Recovery);
+}
+</pre>
+<p>然后来看tcp_enter_cwr，这个函数主要是用于进入CWR状态。看这个函数的时候，可以看到和上面recover状态使用的变量的设置关系.</p>
+<pre class="brush: cpp; title: ; notranslate">
+void tcp_enter_cwr(struct sock *sk, const int set_ssthresh)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+	const struct inet_connection_sock *icsk = inet_csk(sk);
+
+	tp-&#62;prior_ssthresh = 0;
+	tp-&#62;bytes_acked = 0;
+	if (icsk-&#62;icsk_ca_state &#60; TCP_CA_CWR) {
+		tp-&#62;undo_marker = 0;
+		if (set_ssthresh)
+			tp-&#62;snd_ssthresh = icsk-&#62;icsk_ca_ops-&#62;ssthresh(sk);
+		tp-&#62;snd_cwnd = min(tp-&#62;snd_cwnd,
+				   tcp_packets_in_flight(tp) + 1U);
+		tp-&#62;snd_cwnd_cnt = 0;
+//设置最大序列号
+		tp-&#62;high_seq = tp-&#62;snd_nxt;
+		tp-&#62;snd_cwnd_stamp = tcp_time_stamp;
+		TCP_ECN_queue_cwr(tp);
+//进入CWR状态.
+		tcp_set_ca_state(sk, TCP_CA_CWR);
+	}
+}
+</pre>
+<p>可以看到上面的设置保存了很多值，那么这些值在什么时候使用呢，先来看上面的代码分析中跳过的片段,也就是tcp_try_undo_dsack函数。</p>
+<p>这个函数主要是用于检测是否需要从cwnd减小的驱使中恢复，这里判断条件就是undo_marker和undo_retrans.<br />
+这里undo_retrans为0,则表示没有重传任何数据，或者说重传的数据都已经被DSACK了，从而说明数据都已经安全抵达，那么这个时候自然需要从cwr恢复。</p>
+<pre class="brush: cpp; title: ; notranslate">
+static void tcp_try_undo_dsack(struct sock *sk)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+
+	if (tp-&#62;undo_marker &#38;&#38; !tp-&#62;undo_retrans) {
+		DBGUNDO(sk, &#34;D-SACK&#34;);
+//恢复拥塞窗口以及slow start的阈值。
+		tcp_undo_cwr(sk, true);
+		tp-&#62;undo_marker = 0;
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPDSACKUNDO);
+	}
+}
+</pre>
+<p>从上面可以看到核心就是tcp_undo_cwr函数。这个函数主要就是用于重置发送拥塞窗口和slow start的阈值.</p>
+<pre class="brush: cpp; title: ; notranslate">
+static void tcp_undo_cwr(struct sock *sk, const bool undo_ssthresh)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+
+	if (tp-&#62;prior_ssthresh) {
+		const struct inet_connection_sock *icsk = inet_csk(sk);
+
+		if (icsk-&#62;icsk_ca_ops-&#62;undo_cwnd)
+			tp-&#62;snd_cwnd = icsk-&#62;icsk_ca_ops-&#62;undo_cwnd(sk);
+		else
+			tp-&#62;snd_cwnd = max(tp-&#62;snd_cwnd, tp-&#62;snd_ssthresh &#60;&#60; 1);
+
+		if (undo_ssthresh &#38;&#38; tp-&#62;prior_ssthresh &#62; tp-&#62;snd_ssthresh) {
+//恢复到先前保存的阈值
+			tp-&#62;snd_ssthresh = tp-&#62;prior_ssthresh;
+			TCP_ECN_withdraw_cwr(tp);
+		}
+	} else {
+		tp-&#62;snd_cwnd = max(tp-&#62;snd_cwnd, tp-&#62;snd_ssthresh);
+	}
+	tp-&#62;snd_cwnd_stamp = tcp_time_stamp;
+}
+</pre>
+<p>然后来看在recover状态下，如何处理重复/部分确认.</p>
+<pre class="brush: cpp; title: ; notranslate">
+	case TCP_CA_Recovery:
+//如果收到了重复确认
+		if (!(flag &#38; FLAG_SND_UNA_ADVANCED)) {
+//如果是reno算法，则更新sack
+			if (tcp_is_reno(tp) &#38;&#38; is_dupack)
+				tcp_add_reno_sack(sk);
+		} else
+//接收到了部分确认，那么此时就需要撤销先前的设置
+			do_lost = tcp_try_undo_partial(sk, pkts_acked);
+		break;
+</pre>
+<p>然后来看tcp_try_undo_partial,这个函数就是用来检查是否可以从接受到的部分确认撤销，它的返回值就是是否需要标记一些段为丢失。</p>
+<p>这里要注意tcp_may_undo函数，这个函数主要用于判断是否是错误的进入了拥塞状态，如果是那么就返回true，然后接下来就需要从错误的状态撤销.它的判断类似上面的tcp_try_undo_dsack。</p>
+<pre class="brush: cpp; title: ; notranslate">
+static int tcp_try_undo_partial(struct sock *sk, int acked)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+	/* Partial ACK arrived. Force Hoe's retransmit. */
+	int failed = tcp_is_reno(tp) || (tcp_fackets_out(tp) &#62; tp-&#62;reordering);
+//判断是否需要撤销
+	if (tcp_may_undo(tp)) {
+		/* Plain luck! Hole if filled with delayed
+		 * packet, rather than with a retransmit.
+		 */
+		if (!tcp_any_retrans_done(sk))
+			tp-&#62;retrans_stamp = 0;
+//update重定序长度
+		tcp_update_reordering(sk, tcp_fackets_out(tp) + acked, 1);
+
+		DBGUNDO(sk, &#34;Hoe&#34;);
+//从cwr撤销
+		tcp_undo_cwr(sk, false);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPPARTIALUNDO);
+
+		/* So... Do not make Hoe's retransmit yet.
+		 * If the first packet was delayed, the rest
+		 * ones are most probably delayed as well.
+		 */
+		failed = 0;
+	}
+	return failed;
+}
+</pre>
+<p>然后就是LOSS状态的处理，也就是说在LOSS状态时处理重复以及部分确认.这个状态的处理类似上面的recover状态，因此这里就简要的描述下.</p>
+<pre class="brush: cpp; title: ; notranslate">
+	case TCP_CA_Loss:
+		if (flag &#38; FLAG_DATA_ACKED)
+			icsk-&#62;icsk_retransmits = 0;
+		if (tcp_is_reno(tp) &#38;&#38; flag &#38; FLAG_SND_UNA_ADVANCED)
+			tcp_reset_reno_sack(tp);
+//判断是否需要从LOSS状态撤销
+		if (!tcp_try_undo_loss(sk)) {
+//不需要撤销，则调整拥塞窗口
+			tcp_moderate_cwnd(tp);
+//重传
+			tcp_xmit_retransmit_queue(sk);
+			return;
+		}
+		if (icsk-&#62;icsk_ca_state != TCP_CA_Open)
+			return;
+</pre>
+<p>最后我们来看退出拥塞状态检测的处理，也就是当发送未确认的段大于等于high_seq(拥塞发生时的snd_nxt).当大于high_seq的时候，则说明可能我们需要从拥塞状态退出了，因为此时可能当拥塞状态发生时丢失的段都已经传输完毕。</p>
+<pre class="brush: cpp; title: ; notranslate">
+		case TCP_CA_Loss:
+			icsk-&#62;icsk_retransmits = 0;
+//尝试撤销拥塞状态
+			if (tcp_try_undo_recovery(sk))
+				return;
+			break;
+
+		case TCP_CA_CWR:
+			/* CWR is to be held something *above* high_seq
+			 * is ACKed for CWR bit to reach receiver. */
+			if (tp-&#62;snd_una != tp-&#62;high_seq) {
+				tcp_complete_cwr(sk);
+//恢复到open状态.
+				tcp_set_ca_state(sk, TCP_CA_Open);
+			}
+			break;
+
+		case TCP_CA_Recovery:
+			if (tcp_is_reno(tp))
+				tcp_reset_reno_sack(tp);
+//尝试撤销拥塞状态
+			if (tcp_try_undo_recovery(sk))
+				return;
+//完成cwr
+			tcp_complete_cwr(sk);
+			break;
+		}
+</pre>
+<p>来看最后一个函数，也就是tcp_try_undo_recovery函数。这个函数主要就是用于撤销拥塞状态。</p>
+<pre class="brush: cpp; title: ; notranslate">
+static bool tcp_try_undo_recovery(struct sock *sk)
+{
+	struct tcp_sock *tp = tcp_sk(sk);
+//是否需要撤销
+	if (tcp_may_undo(tp)) {
+		int mib_idx;
+
+		/* Happy end! We did not retransmit anything
+		 * or our original transmission succeeded.
+		 */
+		DBGUNDO(sk, inet_csk(sk)-&#62;icsk_ca_state == TCP_CA_Loss ? &#34;loss&#34; : &#34;retrans&#34;);
+//撤销设置
+		tcp_undo_cwr(sk, true);
+		if (inet_csk(sk)-&#62;icsk_ca_state == TCP_CA_Loss)
+			mib_idx = LINUX_MIB_TCPLOSSUNDO;
+		else
+			mib_idx = LINUX_MIB_TCPFULLUNDO;
+
+		NET_INC_STATS_BH(sock_net(sk), mib_idx);
+		tp-&#62;undo_marker = 0;
+	}
+	if (tp-&#62;snd_una == tp-&#62;high_seq &#38;&#38; tcp_is_reno(tp)) {
+		/* Hold old state until something *above* high_seq
+		 * is ACKed. For Reno it is MUST to prevent false
+		 * fast retransmits (RFC2582). SACK TCP is safe. */
+		tcp_moderate_cwnd(tp);
+		return true;
+	}
+//设置状态为open.
+	tcp_set_ca_state(sk, TCP_CA_Open);
+	return false;
+}
+</pre>
+<div class='yarpp-related-rss'>
+<p>Related posts:<ol>
+<li><a href='http://www.pagefault.info/?p=145' rel='bookmark' title='linux kernel tcp拥塞处理之cubic算法'>linux kernel tcp拥塞处理之cubic算法</a></li>
+<li><a href='http://www.pagefault.info/?p=444' rel='bookmark' title='tcp拥塞算法vegas分析'>tcp拥塞算法vegas分析</a></li>
+<li><a href='http://www.pagefault.info/?p=346' rel='bookmark' title='linux下tcp选项TCP_DEFER_ACCEPT详解'>linux下tcp选项TCP_DEFER_ACCEPT详解</a></li>
+</ol></p>
+<img src='http://yarpp.org/pixels/b7e2dd88cefef3dc8c20c3f77d9ef135'/>
+</div>
+<br/>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>汇读</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-responsive.min.css" rel="stylesheet">
+    <style>
+        .body{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-family: "Helvetica Neue","Helvetica", "Lucida Grande",sans-serif,serif,"宋体";
+            text-rendering:optimizeLegibility;
+            color: #000000;
+        }
+    .container{
+        margin: 0 auto;
+        min-width:{{{minWidth}}};
+        max-width:{{{maxWidth}}}; /** 640px;不同设备修改这儿*/
+        word-wrap: break-word;
+        word-wrap:break-word;
+        word-break:break-all;
+    }
+    .article_header{
+        padding-top: {{{paddingTop}}};
+        color: #949494;
+        font-size:13px;
+    }
+    .article_title{
+        border-style:solid;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 1px;
+        border-left-width: 0px;
+        border-bottom-color:{{{borderBottomColor}}};
+        font-size:{{{titleFontSize}}};
+        line-height:140%;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        font-weight: bold;
+        text-align:justify;
+    }
+    
+    .article-content{
+        padding-top: 5px;
+        font-size:{{{contentFontSize}}};
+        line-height: 167%;
+        text-indent: 0em;
+        text-align:justify;
+    }
+    .article-content table{
+        table-layout:fixed;
+    }
+    .img-center{
+        text-align: center;
+        text-indent:0em;
+    }
+    .article-content table{
+        text-indent:0em;
+    }
+    
+    .article-content pre{
+        text-indent:0em;
+        line-height: 167%;
+    }
+    
+    .article-content ol{
+        text-indent:0em;
+        line-height: 167%;
+    }
+    .article-content li{
+        line-height: 167%;
+    }
+    
+    .article-content ul{
+        text-indent:0em;
+        line-height: 167%;
+    }
+    
+    .article-content h1{
+        font-size:{{{titleFontSize}}};
+    }
+    
+    .article-content h2{
+        font-size:{{{titleFontSize}}};
+    }
+    
+    .article-content h1 span{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h1 p{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h2 span{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h2 p{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    </style>
+</head>
+<body class="body">
+<div class="container">
+    <div class="container article_header">
+        {{{article.author}}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{{article.formatPublishDate}}}
+    </div>
+  <div class="container article_title">
+      {{{article.title}}}
+   </div>
+   <div class="container article-content">
+          {{{article.content}}}
+   </div>
+</div>
+<script src="jquery-1.9.1.min.js"></script>
+<script src="bootstrap.min.js"></script>  
+<script src="run_prettify.js?skin=github"></script>
+
+
+<script type="text/javascript">
+    
+    function showNativeView(){
+        window.location.href = "huiduaction://loadsuccess";
+    }
+
+   /**
+    $(document).ready(function(){
+                       alert("onready");
+          setTimeout("showNativeView()", 50)
+    });
+    */
+    $(window).load(function(){
+           setTimeout("showNativeView()", 50)
+     });
+    
+ 
+    //try{
+       // window.location.href = "huiduaction://loadsuccess";
+    //}catch(e){
+    //}
+</script>
+     
+
+</body>
+</html>

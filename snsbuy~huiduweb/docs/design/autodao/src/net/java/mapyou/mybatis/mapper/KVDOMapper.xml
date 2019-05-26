@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.mapyou.mybatis.mapper.KVDOMapper" >
+  <resultMap id="BaseResultMap" type="net.java.mapyou.mybatis.domain.KVDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="kv_key" property="kvKey" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="kv_value" property="kvValue" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from kv_store
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.java.mapyou.mybatis.domain.KVDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into kv_store (kv_key, type, kv_value, 
+      gmt_create, gmt_modify)
+    values (#{kvKey,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{kvValue,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="net.java.mapyou.mybatis.domain.KVDO" >
+    update kv_store
+    set kv_key = #{kvKey,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      kv_value = #{kvValue,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, kv_key, type, kv_value, gmt_create, gmt_modify
+    from kv_store
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, kv_key, type, kv_value, gmt_create, gmt_modify
+    from kv_store
+  </select>
+</mapper>

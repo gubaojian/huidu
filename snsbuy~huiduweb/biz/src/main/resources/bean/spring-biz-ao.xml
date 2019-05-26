@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jee="http://www.springframework.org/schema/jee"
+        xmlns:lang="http://www.springframework.org/schema/lang"
+        xmlns:jms="http://www.springframework.org/schema/jms"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+        default-autowire="byName">
+
+<bean id="articleAO" class="net.java.efurture.reader.biz.ao.impl.ArticleAOImpl"></bean>
+<bean id="articleCategoryMapperAO" class="net.java.efurture.reader.biz.ao.impl.ArticleCategoryMapperAOImpl"></bean>
+<bean id="categoryAO" class="net.java.efurture.reader.biz.ao.impl.CategoryAOImpl"></bean>
+
+
+<bean id="feedAO" class="net.java.efurture.reader.biz.ao.impl.FeedAOImpl"></bean>
+
+<bean id="taskAO" class="net.java.efurture.reader.biz.ao.impl.TaskAOImpl"></bean>
+
+
+
+
+<bean id="deviceAO" class="net.java.mapyou.ao.impl.DeviceAOImpl"></bean>
+
+
+<bean id="locationAO" class="net.java.mapyou.ao.impl.LocationAOImpl"></bean>
+
+<bean id="shortUrlAO" class="net.java.mapyou.ao.impl.ShortUrlAOImpl"></bean>
+
+<bean id="pushAO" class="net.java.mapyou.ao.impl.PushAOImpl"></bean>
+
+
+
+
+
+
+</beans>

@@ -1,0 +1,166 @@
+<h4>一个致命字符串</h4>
+<p>　　传说中，存在这么一串神秘的字符，你把它们放到终端，然后回车，不消太久，你的机器就变植物人只能低电平复位重启了。这串神秘的字符看起来是这样的，</p>
+
+<div class="wp_codebox"><table><tr id="p266147"><td class="line_numbers"><pre>1
+</pre></td><td class="code" id="p2661code47"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ :<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#123;</span> :<span style="color: #000000; font-weight: bold;">|</span>:; <span style="color: #7a0874; font-weight: bold;">&#125;</span>;:<span style="color: #000000; font-weight: bold;">&#38;</span></pre></td></tr></table></div>
+
+<p>　　这是神马玩意儿呢？好的，现在听我的，把你的脑袋面对显示器逆时针旋转四分之一圆周，像不像一个张着血盆大口的长袍老怪？<br />
+　　严肃点，你看懂它的真相了吗？换种等价的写法，</p>
+
+<div class="wp_codebox"><table><tr id="p266148"><td class="line_numbers"><pre>1
+</pre></td><td class="code" id="p2661code48"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ foo<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#123;</span> foo<span style="color: #000000; font-weight: bold;">|</span>foo; <span style="color: #7a0874; font-weight: bold;">&#125;</span>;foo<span style="color: #000000; font-weight: bold;">&#38;</span></pre></td></tr></table></div>
+
+<p>　　其实就是“声明”了一个函数，然后在后台执行这个函数。在函数体内部，以管道的形式调用递归调用自身。第一种写法只是把函数名换成&#8221;:&#8221;产生的怪胎。<br />
+　　就这么简单吗？函数体里面，以管道连接的第二个foo会被执行吗？这需要了解Unix终端下的管道机制，在这之前，先观察一下这些进程的进程树。为了不致于死的那么快，对这个函数稍加修改，</p>
+
+<div class="wp_codebox"><table><tr id="p266149"><td class="line_numbers"><pre>1
+2
+</pre></td><td class="code" id="p2661code49"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ :<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #7a0874; font-weight: bold;">&#41;</span><span style="color: #7a0874; font-weight: bold;">&#123;</span> <span style="color: #c20cb9; font-weight: bold;">sleep</span> <span style="color: #000000;">30</span>;:<span style="color: #000000; font-weight: bold;">|</span>:; <span style="color: #7a0874; font-weight: bold;">&#125;</span>;:<span style="color: #000000; font-weight: bold;">&#38;</span>
+<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #000000;">1</span><span style="color: #7a0874; font-weight: bold;">&#93;</span> <span style="color: #000000;">12345</span></pre></td></tr></table></div>
+
+<p>　　接下来使用pstree命令，查看进程12345的子进程树。</p>
+
+<div class="wp_codebox"><table><tr id="p266150"><td class="line_numbers"><pre>1
+</pre></td><td class="code" id="p2661code50"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ watch <span style="color: #c20cb9; font-weight: bold;">pstree</span> <span style="color: #660033;">-c</span> <span style="color: #000000;">12345</span></pre></td></tr></table></div>
+
+<p>　　每隔30秒左右，进程树变化一次，依次，</p>
+<pre>
+bash---sleep
+
+bash-+-bash---sleep
+     `-bash---sleep
+
+bash-+-bash-+-bash---sleep
+     |      `-bash---sleep
+     `-bash-+-bash---sleep
+            `-bash---sleep
+
+bash-+-bash-+-bash-+-bash---sleep
+     |      |      `-bash---sleep
+     |      `-bash-+-bash---sleep
+     |             `-bash---sleep
+     `-bash-+-bash-+-bash---sleep
+            |      `-bash---sleep
+            `-bash-+-bash---sleep
+                   `-bash---sleep
+</pre>
+<p>　　可见，该进程树以二叉树的形式进行扩展。间接说明了，以管道连接的两个命令并不是一次执行的，即两个命令的执行是并发的，时间上是有交叠的。</p>
+<h4>终端下的管道机制</h4>
+<p>　　Unix终端下管道的实现使用了进程间通讯的一种，即匿名管道。由于匿名管道是匿名的，所以只能用在有亲缘关系的进程之间。通常是父进程创建匿名管道，然后fork出子进程，这时父子进程共享匿名管道的描述符。然后父进程向管道中写数据，子进程从管道中读数据。<br />
+　　具体到bash中的管道：bash首先解析用户的输入，比如foo | bar。然后，bash使用fork创建子进程P1，必要时使用wait族系统调用等待子进程结束。由P1创建匿名管道，然后P1再次fork出P2进程。接着，P1关闭匿名管道的读端，并将写端的文件描述符复制到标准输出（dup系统调用）；P2关闭匿名管道的写端，并将读端的文件描述符复制到标准输入。最后，P1使用exec族系统调用执行foo，覆盖当前进程空间；P2使用执行bar。这样，最终foo的标准输出就被管道连接到了bar的标准输入上了。<br />
+　　要注意的是，这里foo和bar谁是父谁是子是取决于实现的，不变的是管道流始终是自左向右的。<br />
+下面是一段示例代码，</p>
+
+<div class="wp_codebox"><table><tr id="p266151"><td class="line_numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre></td><td class="code" id="p2661code51"><pre class="c" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">//~ foo.c</span>
+<span style="color: #993333;">int</span>
+main<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#123;</span>
+    write<span style="color: #009900;">&#40;</span><span style="color: #0000dd;">1</span><span style="color: #339933;">,</span> <span style="color: #ff0000;">&#34;message<span style="color: #000099; font-weight: bold;">\n</span>&#34;</span><span style="color: #339933;">,</span> <span style="color: #0000dd;">8</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">return</span> <span style="color: #0000dd;">0</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span>
+<span style="color: #666666; font-style: italic;">//~ bar.c</span>
+<span style="color: #993333;">int</span>
+main<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#123;</span>
+    <span style="color: #993333;">char</span> buf<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">9</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><span style="color: #0000dd;">0</span><span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
+    read<span style="color: #009900;">&#40;</span><span style="color: #0000dd;">0</span><span style="color: #339933;">,</span> buf<span style="color: #339933;">,</span> <span style="color: #993333;">sizeof</span><span style="color: #009900;">&#40;</span>buf<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    buf<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">0</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">-=</span> <span style="color: #0000dd;">32</span><span style="color: #339933;">;</span>
+    write<span style="color: #009900;">&#40;</span><span style="color: #0000dd;">1</span><span style="color: #339933;">,</span> buf<span style="color: #339933;">,</span> <span style="color: #0000dd;">8</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">return</span> <span style="color: #0000dd;">0</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span>
+<span style="color: #666666; font-style: italic;">//~ main.c</span>
+<span style="color: #993333;">int</span>
+main<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+<span style="color: #009900;">&#123;</span>
+    pid_t pid<span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#40;</span>pid <span style="color: #339933;">=</span> fork<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">==</span> <span style="color: #0000dd;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #666666; font-style: italic;">//~ child will establish a pipe</span>
+        <span style="color: #993333;">int</span> fd<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">2</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">;</span>
+        pipe<span style="color: #009900;">&#40;</span>fd<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span>fork<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">==</span> <span style="color: #0000dd;">0</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+            <span style="color: #666666; font-style: italic;">//~ child of child</span>
+            close<span style="color: #009900;">&#40;</span>fd<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">1</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ only read</span>
+            dup2<span style="color: #009900;">&#40;</span>fd<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">0</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #0000dd;">0</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ dupliate 'in-endian' of the pipe to 'stdin'</span>
+            execv<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&#34;./bar&#34;</span><span style="color: #339933;">,</span> NULL<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ execute 'bar'</span>
+        <span style="color: #009900;">&#125;</span>
+        close<span style="color: #009900;">&#40;</span>fd<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">0</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ only write</span>
+        dup2<span style="color: #009900;">&#40;</span>fd<span style="color: #009900;">&#91;</span><span style="color: #0000dd;">1</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">,</span> <span style="color: #0000dd;">1</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ duplicate 'out-endian' of the pipe to 'stdout'</span>
+        execv<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&#34;./foo&#34;</span><span style="color: #339933;">,</span> NULL<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;">//~ execute 'foo'</span>
+        wait<span style="color: #009900;">&#40;</span>NULL<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+    <span style="color: #666666; font-style: italic;">//~ parent will wait.</span>
+    wait<span style="color: #009900;">&#40;</span>NULL<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #b1b100;">return</span> <span style="color: #0000dd;">0</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span></pre></td></tr></table></div>
+
+
+<div class="wp_codebox"><table><tr id="p266152"><td class="line_numbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code" id="p2661code52"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ <span style="color: #c20cb9; font-weight: bold;">cc</span> foo.c <span style="color: #660033;">-o</span> foo <span style="color: #000000; font-weight: bold;">&#38;&#38;</span> <span style="color: #c20cb9; font-weight: bold;">cc</span> bar.c <span style="color: #660033;">-o</span> bar <span style="color: #000000; font-weight: bold;">&#38;&#38;</span> <span style="color: #c20cb9; font-weight: bold;">cc</span> main.c <span style="color: #660033;">-o</span> main
+dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ .<span style="color: #000000; font-weight: bold;">/</span>foo
+message
+dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ .<span style="color: #000000; font-weight: bold;">/</span>main
+Message</pre></td></tr></table></div>
+
+<h4>总结</h4>
+<p>　　关于终端下的管道，它的简洁和强大自不必说。需要清楚的是，管道中各进程的启动是没有一定的次序的，执行时间是交叠的。一旦知道这些，下面的命令的结果就不会出乎意料。</p>
+
+<div class="wp_codebox"><table><tr id="p266153"><td class="line_numbers"><pre>1
+</pre></td><td class="code" id="p2661code53"><pre class="bash" style="font-family:monospace;">dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ <span style="color: #c20cb9; font-weight: bold;">cat</span> main.c <span style="color: #000000; font-weight: bold;">|</span> <span style="color: #c20cb9; font-weight: bold;">sed</span> <span style="color: #ff0000;">'s#//.*##'</span> <span style="color: #000000; font-weight: bold;">&#62;</span> main.c <span style="color: #666666; font-style: italic;">#warning: main.c may be truncated.</span></pre></td></tr></table></div>
+
+<p>　　这个命令可以并行的执行某个程序，</p>
+
+<div class="wp_codebox"><table><tr id="p266154"><td class="line_numbers"><pre>1
+2
+3
+4
+</pre></td><td class="code" id="p2661code54"><pre class="bash" style="font-family:monospace;"><span style="color: #666666; font-style: italic;"># 如果run.sh产生大量标准输出时，只有最后一个进程的输出会显示到终端</span>
+<span style="color: #666666; font-style: italic;"># 其他的都会'堆积'到匿名管道中(如果run.sh不从标准输入读取数据的话)</span>
+<span style="color: #666666; font-style: italic;"># 这可能导致进程阻塞</span>
+dutor<span style="color: #000000; font-weight: bold;">@</span>home: ~$ .<span style="color: #000000; font-weight: bold;">/</span>run.sh <span style="color: #000000; font-weight: bold;">|</span> .<span style="color: #000000; font-weight: bold;">/</span>run.sh <span style="color: #000000; font-weight: bold;">|</span> .<span style="color: #000000; font-weight: bold;">/</span>run.sh <span style="color: #000000; font-weight: bold;">|</span> .<span style="color: #000000; font-weight: bold;">/</span>run.sh</pre></td></tr></table></div>
+
+<br/>

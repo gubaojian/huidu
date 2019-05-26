@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.java.efurture.reader.mybatis.mapper.TaskDOMapper" >
+  <resultMap id="BaseResultMap" type="net.java.efurture.reader.mybatis.domain.TaskDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="relate_id" property="relateId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="priority" property="priority" jdbcType="TINYINT" />
+    <result column="last_execute_time" property="lastExecuteTime" jdbcType="TIMESTAMP" />
+    <result column="schedule_time" property="scheduleTime" jdbcType="TIMESTAMP" />
+    <result column="execute_info" property="executeInfo" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  
+  <sql id="do_columns">
+    t.id, t.relate_id, t.type,  t.status, t.priority, t.last_execute_time, t.schedule_time, 
+    t.execute_info, t.gmt_create, t.gmt_modified
+  </sql>
+  
+  <sql id="dynamic_where">
+      <where>
+          <if test="relateId != null">
+              relate_id = #{relateId}
+          </if>
+          <if test="type != null">
+             and  type = #{type}
+          </if>
+         
+          <if test="scheduleTimeEnd != null">
+             <![CDATA[ and schedule_time <=  #{scheduleTimeEnd} ]]>
+          </if>
+          <if test="scheduleTimeStart != null">
+              <![CDATA[ and schedule_time >=  #{scheduleTimeStart} ]]>
+          </if>
+           <if test="status != null">
+             and status = #{status}
+          </if>
+    </where>
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.java.efurture.reader.mybatis.domain.TaskDO" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into task (relate_id, type, status, 
+      priority, last_execute_time, schedule_time, 
+      execute_info, gmt_create, gmt_modified
+      )
+    values (#{relateId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{priority,jdbcType=TINYINT}, #{lastExecuteTime,jdbcType=TIMESTAMP}, #{scheduleTime,jdbcType=TIMESTAMP}, 
+      #{executeInfo,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="net.java.efurture.reader.mybatis.domain.TaskDO" >
+    update task
+    <set>
+         <if test="status != null">
+            status = #{status},
+         </if>
+         <if test="type != null">
+           type = #{type}, 
+         </if>
+         <if test="priority != null">
+            priority = #{priority},
+         </if>
+         <if test="scheduleTime != null">
+             schedule_time = #{scheduleTime},
+         </if>
+         <if test="lastExecuteTime != null">
+            last_execute_time = #{lastExecuteTime},
+         </if>
+         <if test="executeInfo != null">
+             execute_info = #{executeInfo},
+         </if>
+         <if test="gmtModified != null">
+            gmt_modified = #{gmtModified}
+         </if>
+      </set>
+     where id = #{id}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, relate_id, type, status, priority, last_execute_time, schedule_time, execute_info, 
+    gmt_create, gmt_modified
+    from task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="net.java.efurture.reader.mybatis.query.TaskQuery">
+    select count(*)
+      from task
+      <include refid="dynamic_where"/>
+  </select>
+  
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="net.java.efurture.reader.mybatis.query.TaskQuery">
+    select  <include refid="do_columns"/>
+    from (
+        select id from  task
+        <include refid="dynamic_where"/>
+          order by  schedule_time desc, priority desc
+          limit #{startIndex}, #{pageSize}
+    )a, task t where a.id = t.id;
+  </select>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, relate_id, type, status, priority, last_execute_time, schedule_time, execute_info, 
+    gmt_create, gmt_modified
+    from task
+  </select>
+</mapper>
