@@ -1,8 +1,8 @@
 # huidu
 
-汇读，最专业的阅读工具
+汇读，最专业的阅读工具。本仓库包含汇读的服务端/Android/iOS一整套源代码。
 
-
+#### APP部分截图如下：
 <div class="active item">
 <div class="jumbotron">
 <h3>汇读 &nbsp;最专业的阅读工具</h3>
