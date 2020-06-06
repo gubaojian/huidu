@@ -1,0 +1,161 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar" >
+           <item name="android:typeface">sans</item>
+    </style>
+    
+    <style name="AppTransparent" parent="AppTheme" >
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+   
+    
+    <style name="Title_TextView" parent="@android:style/TextAppearance.Medium">
+         <item name="android:layout_width">fill_parent</item>
+         <item name="android:layout_height">fill_parent</item>
+         <item name="android:gravity">center</item>
+         <item name="android:textSize">22dp</item>
+         <item name="android:textStyle">bold</item>
+         <item name="android:textColor">@color/title_text_color</item>
+         <item name="android:background">@color/title_bg</item>
+    </style>
+    
+     <style name="CategoryTitle" parent="@android:style/TextAppearance.Medium">
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_height">fill_parent</item>
+         <item name="android:gravity">center_vertical</item>
+         <item name="android:textSize">16dp</item>
+         <item name="android:textStyle">bold</item>
+         <item name="android:textColor">@color/title_text_color</item>
+    </style>
+    
+     <style name="TextView" parent="@android:style/TextAppearance.Medium">
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_height">wrap_content</item>
+         <item name="android:singleLine">true</item>
+         <item name="android:maxLines">1</item>
+         <item name="android:textColor">@color/title_text_color</item>
+         <item name="android:textSize">16dp</item>
+    </style>
+    
+     
+     <style name="RightTextView" parent="TextView">
+         <item name="android:textSize">14dp</item>
+         <item name="android:layout_marginRight">8dp</item>
+    </style>
+    
+     <style name="IconTextView" parent="@android:style/TextAppearance.Medium">
+         <item name="android:layout_width">56dp</item>
+         <item name="android:layout_height">match_parent</item>
+         <item name="android:singleLine">true</item>
+         <item name="android:maxLines">1</item>
+         <item name="android:textColor">@drawable/icon_text_bg</item>
+         <item name="android:textSize">24dp</item>
+         <item name="android:gravity">center</item>
+    </style>
+    
+     <style name="BarIconTextView" parent="IconTextView">
+         <item name="android:layout_width">96dp</item>
+         <item name="android:textSize">24dp</item>
+         <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    
+   <style name="AngleRightIcon" parent="IconTextView">
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_marginRight">8dp</item>
+         <item name="android:text">@string/fa_angle_right</item>
+    </style>
+   
+    <style name="SettingCell">
+         <item name="android:layout_width">fill_parent</item>
+         <item name="android:layout_height">56dp</item>
+         <item name="android:background">@color/white</item>
+         <item name="android:gravity">center_vertical</item>
+         <item name="android:orientation">horizontal</item>
+         <item name="android:paddingLeft">16dp</item>
+         <item name="android:paddingRight">16dp</item>
+    </style>
+   
+    <style name="SettingTextView" parent="TextView">
+         <item name="android:layout_width">0dp</item>
+         <item name="android:layout_weight">1</item>
+    </style>
+    
+  
+     <style name="EditTextView" parent="@android:style/TextAppearance.Medium">
+         <item name="android:layout_width">match_parent</item>
+         <item name="android:layout_height">match_parent</item>
+         <item name="android:singleLine">true</item>
+         <item name="android:maxLines">1</item>
+         <item name="android:textColor">@color/title_text_color</item>
+         <item name="android:textSize">16dp</item>
+         <item name="android:clickable">true</item>
+         <item name="android:gravity">center_vertical</item>
+         <item name="android:hint">发现你感兴趣的人和技术</item>
+         <item name="android:imeOptions">actionSearch</item>
+         <item name="android:inputType">textCapCharacters|textCapWords|textCapSentences|text</item>
+         <item name="android:background">@color/white</item>
+         <item name="android:paddingLeft">16dp</item>
+    </style>
+     
+     
+     
+    
+     <style name="Tab.RadioButton" parent="android:Widget.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@drawable/tab_host_text_color</item>
+        <item name="android:background">@drawable/tab_host_button_bg</item>
+    </style>
+    
+    <style name="LineView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/title_line</item>
+    </style>
+    
+    <style name="AddFavoriteButton" parent="android:Widget.Button">
+         <item name="android:layout_width">66.5dp</item>
+         <item name="android:layout_height">27.5dp</item>
+         <item name="android:background">@drawable/add_favorite_bg</item>
+         <item name="android:gravity">center_vertical</item>
+         <item name="android:layout_gravity">center_vertical</item>
+         <item name="android:clickable">true</item>
+    </style>
+    
+    <style name="CancelFavoriteButton" parent="android:Widget.Button">
+         <item name="android:layout_width">66.5dp</item>
+         <item name="android:layout_height">27.5dp</item>
+         <item name="android:background">@drawable/cancel_favorite_bg</item>
+         <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <style name="NavHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/nav_height</item>
+        <item name="android:background">@color/title_bg</item>
+    </style>
+    
+    <style name="ButtonView" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/content_text_color</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+    </style>
+     
+   
+
+</resources>

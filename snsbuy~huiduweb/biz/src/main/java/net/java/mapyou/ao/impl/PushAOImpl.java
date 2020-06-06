@@ -2,16 +2,11 @@ package net.java.mapyou.ao.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.scheduling.timer.TimerTaskExecutor;
 
 import com.google.code.efurture.common.ao.BaseAO;
 import com.google.code.efurture.common.result.Result;

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>汇读</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="file:///android_asset/html/css/bootstrap.min.css" rel="stylesheet">
+    <link href="file:///android_asset/html/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <style>
+      .body{
+            text-rendering:optimizeLegibility;
+            color: #000000;
+            margin: 10px auto 10px auto;
+            font-family: sans-serif, serif, inherit;
+      }
+    .container{
+        margin: 0 auto, 0, auto;
+        min-width:{{{minWidth}}};
+        max-width:{{{maxWidth}}}; 
+        word-wrap:break-word;
+        word-break:break-word;
+    }
+    .article_header{
+        padding-top: {{{paddingTop}}};
+        color: #949494;
+        font-size:13px;
+    }
+    .article_title{
+        border-style:solid;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 1px;
+        border-left-width: 0px;
+        border-bottom-color:{{{borderBottomColor}}};
+        font-size:{{{titleFontSize}}};
+        line-height:140%;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        font-weight: bold;
+        text-align:justify;
+    }
+    
+    .article-content{
+        padding-top: 5px;
+        font-size:{{{contentFontSize}}};
+        line-height: 150%;
+        text-indent: 0em;
+        text-align:justify;
+    }
+    .article-content p{
+       padding: 0;
+    }
+    .article-content table{
+        table-layout:fixed;
+    }
+    .img-center{
+        text-align: center;
+        text-indent:0em;
+    }
+    .article-content table{
+        text-indent:0em;
+    }
+    
+    .article-content pre{
+        text-indent:0em;
+        line-height: 167%;
+    }
+    
+    .article-content ol{
+        text-indent:0em;
+        display:block;
+        width:100%;
+        list-style:none;
+        line-height: 150%;
+    }
+    
+    .article-content li{
+        line-height: 150%;
+    }
+    .article-content ul{
+        text-indent:10px;
+        display:block;
+        width:100%;
+        list-style:none;
+        line-height: 150%;
+    }
+    
+    .article-content h1{
+        font-size:{{{titleFontSize}}};
+    }
+    
+    .article-content h2{
+        font-size:{{{titleFontSize}}};
+    }
+    
+    .article-content h1 span{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h1 p{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h2 span{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    
+    .article-content h2 p{
+        font-size:{{{titleFontSize}}};
+        font-weight:normal;
+    }
+    </style> 
+</head>
+<body class="body">
+<div class="container">
+    <div class="container article_header">
+        {{{article.author}}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{{article.formatPublishDate}}}
+    </div>
+  <div class="container article_title">
+      {{{article.title}}}
+   </div>
+   <div class="container article-content">
+          {{{article.content}}}
+   </div>
+</div>
+<script src="file:///android_asset/html/js/jquery-1.9.1.min.js" ></script>
+<script src="file:///android_asset/html/js/bootstrap.min.js"></script>  
+<script src="file:///android_asset/html/js/run_prettify.js?skin=github"></script>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{{#categoryList}}
+<br/>
+<br/>
+<br/>
+{{/categoryList}}
+</body>
+</html>

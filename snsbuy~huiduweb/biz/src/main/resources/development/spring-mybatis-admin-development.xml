@@ -21,12 +21,12 @@
 
 <!-- http://www.mchange.com/projects/c3p0/  -->
 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>  
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl">
-           <value>jdbc:mysql://localhost:3306/reader?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false</value>  
+           <value>jdbc:mysql://192.168.2.122:3306/reader?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false</value>
         </property>
         <property name="user" value="root" />  
-        <property name="password" value="lovejava" />  
+        <property name="password" value="Mysql79GU" />
          <property name="minPoolSize" value="4" />  
         <property name="maxPoolSize" value="10" />
         <property name="initialPoolSize"    value="4" />  

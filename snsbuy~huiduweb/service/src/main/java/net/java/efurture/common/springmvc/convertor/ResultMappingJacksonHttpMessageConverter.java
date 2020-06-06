@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-public class ResultMappingJacksonHttpMessageConverter  extends MappingJacksonHttpMessageConverter{
+public class ResultMappingJacksonHttpMessageConverter  extends MappingJackson2HttpMessageConverter {
 
 	@Override
 	protected void writeInternal(Object object, HttpOutputMessage outputMessage)

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/body_bg"
+    android:orientation="vertical"
+    android:clickable="true" >
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:text="王家卫获奥斯卡金奖"
+            android:textColor="@color/title_text_color"
+            android:textSize="18dp"
+            style="@style/TextView" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" >
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="80dp"
+                android:text="编程思想是一部经典之作"
+                android:textColor="@color/content_text_color"
+                android:textSize="14dp" 
+                style="@style/TextView"/>
+
+            <TextView
+                android:id="@+id/publish_time"
+                android:layout_marginLeft="4dp"
+                android:text="9小时前"
+                 android:textColor="@color/content_text_color"
+                android:textSize="14dp" 
+                style="@style/TextView"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/short_desc"
+            android:layout_marginTop="4dp"
+            android:text="那些年不错的Android开源项目-个性化控件篇"
+             android:textColor="@color/content_text_color"
+            android:textSize="14dp"
+            style="@style/TextView" />
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+</LinearLayout>

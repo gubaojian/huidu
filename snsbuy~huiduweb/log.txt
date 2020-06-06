@@ -1,0 +1,1356 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] web Maven Webapp
+[INFO] common
+[INFO] biz
+[INFO] web-common
+[INFO] service Maven Webapp
+[INFO] admin Maven Webapp
+[INFO] biz-test
+[INFO] spider
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building web Maven Webapp 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ duke ---
+[INFO] net.java.efurture.duke:duke:pom:0.0.1-SNAPSHOT
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- junit:junit:jar:4.8.2:test
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building common 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ common ---
+[INFO] net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT
+[INFO] +- junit:junit:jar:3.8.1:test
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building biz 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ biz ---
+[INFO] net.java.efurture.duke:biz:jar:0.0.1-SNAPSHOT
+[INFO] +- net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- net.java.efurture:xingeapp:jar:0.0.1-SNAPSHOT:compile
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- junit:junit:jar:4.8.2:test
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building web-common 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ web-common ---
+[INFO] net.java.efurture.duke:web-common:jar:0.0.1-SNAPSHOT
+[INFO] +- junit:junit:jar:3.8.1:test
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building service Maven Webapp 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ service ---
+[INFO] net.java.efurture.duke:service:war:0.0.1-SNAPSHOT
+[INFO] +- net.java.efurture.duke:biz:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] |  +- net.java.efurture:xingeapp:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- net.java.efurture.duke:web-common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- junit:junit:jar:4.8.2:test
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building admin Maven Webapp 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ admin ---
+[INFO] net.java.efurture.duke:admin:war:0.0.1-SNAPSHOT
+[INFO] +- net.java.efurture.duke:biz:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] |  +- net.java.efurture:xingeapp:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- net.java.efurture.duke:web-common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- junit:junit:jar:4.8.2:test
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building biz-test 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ biz-test ---
+[INFO] net.java.efurture.duke:biz-test:jar:0.0.1-SNAPSHOT
+[INFO] +- net.java.efurture.duke:biz:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] |  +- net.java.efurture:xingeapp:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- junit:junit:jar:4.8.2:test
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building spider 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ spider ---
+[INFO] net.java.efurture.duke:spider:jar:0.0.1-SNAPSHOT
+[INFO] +- net.java.efurture.duke:biz:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- net.java.efurture.duke:common:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] |  +- net.java.efurture:xingeapp:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-orm:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  +- (log4j:log4j:jar:1.2.16:compile - scope updated from runtime; omitted for duplicate)
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  +- (org.hibernate:hibernate-validator:jar:4.1.0.Final:compile - omitted for duplicate)
+[INFO] |  +- (joda-time:joda-time:jar:1.6.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-fileupload:commons-fileupload:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-io:commons-io:jar:2.4:compile - omitted for duplicate)
+[INFO] |  +- (javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.glassfish.web:jstl-impl:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis:jar:3.2.0:compile - omitted for duplicate)
+[INFO] |  +- (org.mybatis:mybatis-spring:jar:1.2.0:compile - omitted for duplicate)
+[INFO] |  +- (com.mchange:c3p0:jar:0.9.5.2:compile - omitted for duplicate)
+[INFO] |  +- (mysql:mysql-connector-java:jar:8.0.20:compile - omitted for duplicate)
+[INFO] |  +- (cglib:cglib-full:jar:2.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-lang:commons-lang:jar:2.6:compile - omitted for duplicate)
+[INFO] |  +- (commons-beanutils:commons-beanutils:jar:1.8.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-codec:commons-codec:jar:1.7:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.apache.httpcomponents:httpclient:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (com.belerweb:pinyin4j:jar:2.5.0:compile - omitted for duplicate)
+[INFO] |  +- (commons-chain:commons-chain:jar:1.2:compile - omitted for duplicate)
+[INFO] |  +- (org.jsoup:jsoup:jar:1.7.2:compile - omitted for duplicate)
+[INFO] |  +- (rome:rome:jar:1.0:compile - omitted for duplicate)
+[INFO] |  +- (com.google.guava:guava:jar:14.0:compile - omitted for duplicate)
+[INFO] |  +- (com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  \- (org.rocksdb:rocksdbjni:jar:5.5.1:compile - omitted for duplicate)
+[INFO] +- junit:junit:jar:4.8:test
+[INFO] +- org.springframework:spring-core:jar:4.3.27.RELEASE:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-context:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-expression:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-beans:jar:4.3.27.RELEASE:compile
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aop:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-aspects:jar:4.3.27.RELEASE:compile
+[INFO] |  \- org.aspectj:aspectjweaver:jar:1.8.9:compile
+[INFO] +- org.springframework:spring-webmvc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-expression:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-web:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-web:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-aop:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-context:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-tx:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-orm:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.springframework:spring-jdbc:jar:4.3.27.RELEASE:compile
+[INFO] |  +- (org.springframework:spring-beans:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  +- (org.springframework:spring-core:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] |  \- (org.springframework:spring-tx:jar:4.3.27.RELEASE:compile - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] +- org.slf4j:jcl-over-slf4j:jar:1.6.1:runtime
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.6.1:runtime - omitted for duplicate)
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.6.1:compile
+[INFO] |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for duplicate)
+[INFO] |  \- (log4j:log4j:jar:1.2.16:compile - omitted for duplicate)
+[INFO] +- log4j:log4j:jar:1.2.16:runtime (scope not updated to compile)
+[INFO] +- javax.validation:validation-api:jar:1.0.0.GA:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+[INFO] |  +- (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+[INFO] |  \- (org.slf4j:slf4j-api:jar:1.5.6:compile - omitted for conflict with 1.6.1)
+[INFO] +- joda-time:joda-time:jar:1.6.2:compile
+[INFO] +- commons-fileupload:commons-fileupload:jar:1.2.2:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.4:provided
+[INFO] +- javax.servlet.jsp:jsp-api:jar:2.1:provided (scope not updated to compile)
+[INFO] +- javax.servlet.jsp.jstl:jstl-api:jar:1.2:compile
+[INFO] |  \- (javax.servlet.jsp:jsp-api:jar:2.1:compile - omitted for duplicate)
+[INFO] +- org.glassfish.web:jstl-impl:jar:1.2:compile
+[INFO] +- org.mybatis:mybatis:jar:3.2.0:compile
+[INFO] +- org.mybatis:mybatis-spring:jar:1.2.0:compile
+[INFO] +- com.mchange:c3p0:jar:0.9.5.2:compile
+[INFO] |  \- com.mchange:mchange-commons-java:jar:0.2.11:compile
+[INFO] +- mysql:mysql-connector-java:jar:8.0.20:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:3.6.1:compile
+[INFO] +- cglib:cglib-full:jar:2.0:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] +- org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile
+[INFO] +- org.codehaus.jackson:jackson-mapper-lgpl:jar:1.9.8:compile
+[INFO] |  \- (org.codehaus.jackson:jackson-core-lgpl:jar:1.9.8:compile - omitted for duplicate)
+[INFO] +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO] |  +- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO] |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.2)
+[INFO] |  \- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.7)
+[INFO] +- com.belerweb:pinyin4j:jar:2.5.0:compile
+[INFO] +- commons-chain:commons-chain:jar:1.2:compile
+[INFO] +- org.jsoup:jsoup:jar:1.7.2:compile
+[INFO] +- rome:rome:jar:1.0:compile
+[INFO] |  \- jdom:jdom:jar:1.0:compile
+[INFO] +- com.google.guava:guava:jar:14.0:compile
+[INFO] +- com.googlecode.juniversalchardet:juniversalchardet:jar:1.0.3:compile
+[INFO] +- org.rocksdb:rocksdbjni:jar:5.5.1:compile
+[INFO] +- org.springframework:spring-test:jar:4.3.27.RELEASE:test
+[INFO] |  \- (org.springframework:spring-core:jar:4.3.27.RELEASE:test - omitted for duplicate)
+[INFO] +- xmlunit:xmlunit:jar:1.2:test
+[INFO] +- com.jayway.jsonpath:json-path:jar:0.8.1:test
+[INFO] |  +- net.minidev:json-smart:jar:1.1.1:test
+[INFO] |  \- (commons-lang:commons-lang:jar:2.6:test - omitted for duplicate)
+[INFO] \- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] web Maven Webapp ................................... SUCCESS [  0.770 s]
+[INFO] common ............................................. SUCCESS [  0.043 s]
+[INFO] biz ................................................ SUCCESS [  0.043 s]
+[INFO] web-common ......................................... SUCCESS [  0.024 s]
+[INFO] service Maven Webapp ............................... SUCCESS [  0.056 s]
+[INFO] admin Maven Webapp ................................. SUCCESS [  0.034 s]
+[INFO] biz-test ........................................... SUCCESS [  0.028 s]
+[INFO] spider ............................................. SUCCESS [  0.030 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.237 s
+[INFO] Finished at: 2020-06-09T23:34:12+08:00
+[INFO] Final Memory: 16M/491M
+[INFO] ------------------------------------------------------------------------

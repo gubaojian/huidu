@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+    
+     <dimen name="nav_height">48dp</dimen>
+     
+     
+     <dimen name="category_title">18dp</dimen>
+     
+     <dimen name="radius">4dp</dimen>
+
+</resources>

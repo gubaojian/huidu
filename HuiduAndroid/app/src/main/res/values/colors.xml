@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="title_text_color">#565656</color>
+    <color name="content_text_color">#949494</color>
+    <color name="title_bg">#f4f4f4</color>
+    <color name="button_bg">#f4f4f4</color>
+    <color name="title_line">#888888</color>
+    <color name="body_bg">#e7e8e9</color>
+    <color name="white">#FFFFFF</color>
+    <color name="select_mask">#80000000</color>
+    <color name="category_header_bg">#f8f8f8</color>
+    <color name="flat_ui_alizarin">#E74C3C</color>
+    <color name="flat_ui_pomegranate">#C0392B</color>
+
+    <color name="flat_ui_radio_white_plain_tc">#8DFFFFFF</color>
+    <color name="flat_ui_radio_white_checked_tc">#CCFFFFFF</color>
+    <color name="tab_icon_checked">#f69006</color>
+    <color name="tab_host_bg">#414141</color>
+    <color name="tab_host_select_bg">#333333</color>
+    
+    
+</resources>

@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/body_bg" >
+   <FrameLayout 
+                android:id="@+id/content_container"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp" 
+                android:layout_weight="1"
+                android:background="@color/body_bg">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+           android:id="@+id/pull_to_refresh_listview"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+       <net.java.efurture.huidu.view.LoadMaskView 
+           android:id="@+id/load_mask"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+   </FrameLayout>
+   <View style="@style/LineView"/>
+   <LinearLayout android:id="@+id/header"
+                   style="@style/NavHeader"
+                   android:orientation="horizontal">
+         <net.java.efurture.icon.IconTextView
+            android:id="@+id/back" 
+            style="@style/BarIconTextView"
+            android:layout_width="64dp"
+            android:paddingLeft="32dp"
+            android:text="@string/fa_arrow_left"/>
+       <TextView
+           android:id="@+id/category_name"
+           style="@style/CategoryTitle"
+           android:gravity="center"
+           android:textSize="@dimen/category_title"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:text="@string/home_title"/>
+       <Button
+         android:id="@+id/favorite_button"
+         android:layout_marginRight="8dp"
+         style="@style/AddFavoriteButton"/>
+   </LinearLayout>
+</LinearLayout>

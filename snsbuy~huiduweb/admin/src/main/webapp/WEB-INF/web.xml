@@ -7,7 +7,7 @@
        <!-- 共享的bean  -->
         <context-param>
                 <param-name>contextConfigLocation</param-name>
-                <param-value>classpath:spring-biz-admin-product-context-config.xml</param-value>
+                <param-value>classpath:spring-biz-admin-dev-context-config.xml</param-value>
         </context-param>
    <!-- 初始化共享bean -->
 	<listener>
@@ -38,6 +38,7 @@
                 <filter-name>encodingFilter </filter-name>
                 <url-pattern>*.htm</url-pattern>
         </filter-mapping>
+
 
 <servlet-mapping>
 <servlet-name>default</servlet-name>

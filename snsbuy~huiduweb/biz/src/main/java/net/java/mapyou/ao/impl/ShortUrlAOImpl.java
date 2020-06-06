@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import com.google.code.efurture.common.ao.BaseAO;
 import com.google.code.efurture.common.result.Result;
 import com.google.code.efurture.common.resultcode.BaseResultCode;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import net.java.mapyou.ao.ShortUrlAO;
 import net.java.mapyou.ao.ShortUrlAOErrorCode;
