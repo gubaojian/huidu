@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/body_bg">
+
+    <RelativeLayout style="@style/NavHeader">
+       <EditText
+        android:id="@+id/search_edit_text"
+        style="@style/EditTextView"
+        android:paddingRight="56dp"
+        android:focusable="false"
+        android:inputType="none"
+        android:gravity="center"
+        android:editable="false">
+      </EditText>
+     <net.java.efurture.icon.IconTextView
+           android:id="@+id/search_icon"
+           style="@style/IconTextView"
+           android:layout_width="56dp"
+           android:layout_alignParentRight="true"
+           android:text="@string/fa_search"/>
+   </RelativeLayout>
+   <View android:layout_width="fill_parent" 
+         android:layout_height="1px"
+         android:background="@color/title_line"/>
+   <include layout="@layout/list_with_mask"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+</LinearLayout>

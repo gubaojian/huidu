@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item  android:state_pressed="true">
+         <shape  android:shape="rectangle">
+            <solid  android:color="@color/tab_host_select_bg"/>
+        </shape>
+    </item>
+    <item  android:state_focused="true" >
+       <shape  android:shape="rectangle">
+            <solid  android:color="@color/tab_host_select_bg"/>
+        </shape>
+    </item>
+    <item android:state_checked="true" >
+       <shape  android:shape="rectangle">
+            <solid  android:color="@color/tab_host_select_bg"/>
+        </shape>
+    </item>
+    <item>
+         <shape android:shape="rectangle">
+            <solid android:color="@color/tab_host_bg"/>
+         </shape> 
+    </item>
+</selector>

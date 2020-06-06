@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">汇读</string>
+    <string name="title_activity_main">汇读</string>
+    <string name="home_title">汇读</string>
+    <string name="about_title">关于汇读</string>
+    <string name="favorite_title">我的关注</string>
+    <string name="click_more_exit">再按一次退出</string>
+    <string name="none_favorite_tip">您还未关注感兴趣的人和技术，赶紧关注吧</string>
+    <string name="guide_discover">发现兴趣</string>
+    <string name="alert_title">提示</string>
+    <string name="font_size_settings">阅读字号设置</string>
+    <string name="font_size_middle">中</string>
+    <string name="share_with_friends">分享给朋友</string>
+    <string name="rate_app">评价此应用</string>
+    <string name="share_my_blog">推荐我喜欢的博客</string>
+    <string name="share_my_blog_subject">\n\n        欢迎将您喜欢的博客推荐给我们，有了您的推荐，汇读才能让更多人收益。</string>
+    <string name="email_not_support">您的设备不支持邮件</string>
+    <string name="bug_report">Bug反馈及建议</string>
+    <string name="contact_me">联系作者</string>
+    <string name="about_huidu">关于汇读</string>
+    <string name="check_update">检测更新</string>
+    <string name="current_version">当前版本%s</string>
+    
+    <string-array name="font_chooser_choices">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+        <item>特大</item>
+    </string-array>
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="share_title">分享到</string>
+    <string name="share_app_to_friends_content">汇集智慧，在阅读中成长(汇读) http://huidu.lanxijun.com/</string>
+    <string name="none_market">找不到应用市场</string>
+    <string name="latest_version_tips">当前已经是最新版本</string>
+    <string name="new_version_tips">发现新版本%s，立即更新？</string>
+</resources>

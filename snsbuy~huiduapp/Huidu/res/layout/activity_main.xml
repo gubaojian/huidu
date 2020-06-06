@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/body_bg" >
+   <RelativeLayout android:id="@+id/header"
+                  style="@style/NavHeader"
+                  android:layout_height="@dimen/nav_height">
+       <TextView
+           style="@style/Title_TextView"
+           android:text="@string/home_title"/>
+   </RelativeLayout>
+   <View style="@style/LineView"/>
+   <FrameLayout 
+                android:id="@+id/content_container"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp" 
+                android:layout_weight="1"
+                android:background="@color/body_bg">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+           android:id="@+id/pull_to_refresh_listview"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+       <net.java.efurture.huidu.view.LoadMaskView 
+           android:id="@+id/load_mask"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+   </FrameLayout>
+</LinearLayout>

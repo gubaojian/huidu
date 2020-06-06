@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout  
+     android:id="@+id/content_container"  
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:gravity="center" >
+         <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+         <TextView android:id="@+id/loading_tips" 
+                  style="@style/TextView"
+                  android:layout_marginLeft = "8dp"
+                  android:text="正在加载"
+                  android:textColor="#949494"/>
+         <TextView android:id="@+id/load_error_tips" 
+                   android:layout_width="fill_parent"
+                   android:gravity="center"
+                   android:clickable="true"
+                  style="@style/TextView"
+                  android:textColor="#949494"
+                  android:text="加载失败，点击重新加载"
+                  android:visibility="gone"/>
+         <TextView android:id="@+id/all_load" 
+                   android:layout_width="fill_parent"
+                   android:gravity="center"
+                   android:clickable="true"
+                  style="@style/TextView"
+                  android:textColor="#949494"
+                  android:text="加载完成"
+                  android:visibility="gone"/>
+    </LinearLayout>
+</merge>

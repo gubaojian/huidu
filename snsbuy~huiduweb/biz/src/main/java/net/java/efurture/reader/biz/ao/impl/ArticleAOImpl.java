@@ -153,9 +153,9 @@ public class ArticleAOImpl extends BaseAO implements ArticleAO{
 			List<ArticleDO> articleList = articleDOMapper.selectByQuery(query);
 			if(query.getIncludeContent()){
 				for(ArticleDO article : articleList){
-					byte[]  bts = fileStore.get(article.getFileKey());
-					if(bts != null){
- 					    article.setContent(new String(bts));
+					String content   = fileStore.getString(article.getFileKey());
+					if(content != null){
+ 					    article.setContent(content);
 					}
 				}
 			}

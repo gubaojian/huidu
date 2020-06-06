@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+     <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_gravity="center"
+                  android:gravity="center">
+         <TextView style="@style/Title_TextView"
+                   android:id="@+id/loading_app_name"
+                   android:background="@null"
+                   android:text="汇读"/>
+         <TextView style="@style/TextView"
+                  android:id="@+id/loading_slogan"
+                   android:background="@null"
+                   android:text="汇集智慧 在阅读中成长"
+                   android:textSize="16dp"
+                   android:layout_marginTop="4dp"/>
+         <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+         <net.java.efurture.icon.IconTextView
+             android:id="@+id/load_error_icon"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/fa_frown_o"
+             android:textColor="@color/title_text_color"
+             android:textSize="40dp" 
+             android:visibility="gone"/>
+         <TextView android:id="@+id/load_error_tips"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:clickable="true"
+                  style="@style/TextView"
+                  android:textSize="18dp"
+                  android:text="加载失败，点击重新加载"
+                  android:visibility="gone"/>
+         <View  android:layout_width="fill_parent"
+                android:layout_height="128dp"/>
+    </LinearLayout> 
+</FrameLayout>

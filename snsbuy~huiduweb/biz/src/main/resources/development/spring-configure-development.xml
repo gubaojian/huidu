@@ -28,15 +28,9 @@
  
  
  <!-- 文件存储系统 -->
- <bean id="fileStore" class="com.google.code.filestore.DefaultFileStore">
-      <property name="fileManager">
-           <bean class="com.google.code.filestore.manager.LocalFileManager"/>
-      </property>
-      <property name="nameResolver" >
-          <bean class="com.google.code.filestore.resolver.DefaultNameResolver">
-             <property name="homeDir" value="/Users/baobao/Downloads/store/"></property> 
-          </bean>
-      </property>
+ <bean id="fileStore" class="com.google.code.filestore.RocksDBFileStore">
+     <constructor-arg  index="0" value="/Users/efurture/Downloads/store/">
+     </constructor-arg>
  </bean>
  
 

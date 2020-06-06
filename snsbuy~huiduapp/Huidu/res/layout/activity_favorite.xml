@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/body_bg">
+    <RelativeLayout android:id="@+id/header"
+                   style="@style/NavHeader">
+       <TextView
+           style="@style/Title_TextView"
+           android:layout_width="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:text="@string/favorite_title"/>
+       <net.java.efurture.icon.IconTextView
+           android:id="@+id/iconTextView"
+           android:layout_alignParentRight="true"
+           android:layout_centerVertical="true"
+           style="@style/IconTextView"
+           android:text="@string/fa_tag" />
+   </RelativeLayout>
+   <View android:layout_width="fill_parent" 
+         android:layout_height="1px"
+         android:background="@color/title_line"/>
+    <FrameLayout 
+                android:id="@+id/content_container"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp" 
+                android:layout_weight="1"
+                android:background="@color/body_bg">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+           android:id="@+id/pull_to_refresh_listview"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+       <net.java.efurture.huidu.view.LoadMaskView 
+           android:id="@+id/load_mask"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:visibility="gone"/>
+       <RelativeLayout  
+           android:id="@+id/guide_discover"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <LinearLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_centerInParent="true"
+                         android:orientation="vertical"
+                         android:gravity="center">
+              <TextView style="@style/TextView"
+                     android:textSize="14dp"
+                     android:singleLine="false"
+                     android:maxLines="2"
+                     android:text="@string/none_favorite_tip"/>
+              <View android:layout_width="fill_parent"
+                    android:layout_height="12dp"/>
+              <Button
+               android:id="@+id/guide_button"
+               style="@style/ButtonView"
+               android:textColor="@color/title_text_color"
+               android:text="@string/guide_discover" />
+           </LinearLayout>
+       </RelativeLayout>
+   </FrameLayout>
+
+</LinearLayout>

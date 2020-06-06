@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.java.efurture.huidu"
+    android:versionCode="1"
+    android:versionName="1.2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+    
+    <supports-screens android:xlargeScreens="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:anyDensity="true"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+  
+    
+    <application
+        android:name="net.java.efurture.huidu.DuApplication"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+          
+        <activity
+            android:name="net.java.efurture.huidu.activity.HomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.Welcome"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.FavoriteActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.DiscoverActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.AboutActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.SearchActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTransparent" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="huidu.lanxijun.com"
+                    android:path="/search.html"
+                    android:scheme="nav" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.CategoryArticleActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTransparent" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="huidu.lanxijun.com"
+                    android:path="/categoryArticleList.html"
+                    android:scheme="nav" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.ReaderDetailActivity"
+            android:theme="@style/AppTransparent"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="huidu.lanxijun.com"
+                    android:path="/articleDetail.html"
+                    android:scheme="nav" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.java.efurture.huidu.activity.GUWebViewActivity"
+            android:theme="@style/AppTransparent"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="huidu.lanxijun.com"
+                    android:path="/webview.html"
+                    android:scheme="nav" />
+            </intent-filter>
+        </activity>
+
+        <!-- 友盟统计配置 -->
+        <meta-data android:value="52ee7c1856240ba08824c03c" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="wandou" android:name="UMENG_CHANNEL"></meta-data>
+     
+    </application>
+
+</manifest>

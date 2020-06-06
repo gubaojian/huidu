@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/body_bg"
+    android:orientation="vertical">
+  <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+     <TextView 
+                style="@style/CategoryTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/name"
+                android:text="@string/app_name"/>
+     <Button
+         android:id="@+id/favorite_button"
+         style="@style/AddFavoriteButton"/>
+  </LinearLayout>
+  <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px" />
+</LinearLayout>

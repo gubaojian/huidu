@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout android:id="@+id/tab_content_container"
+                  android:layout_width="fill_parent"
+                  android:layout_height="0dp" 
+                  android:layout_weight="1"
+                  android:orientation="vertical">
+ 
+    </LinearLayout>
+ <RadioGroup
+    android:id="@+id/tab_host"
+     android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:background="@color/tab_host_bg"
+    android:layout_alignParentBottom="true">
+    <RadioButton
+        android:id="@+id/tab_main"
+        android:text="首页" 
+        style="@style/Tab.RadioButton"/>
+   <RadioButton
+        android:id="@+id/tab_favorite"
+        android:text="关注" 
+        style="@style/Tab.RadioButton"/>
+   <RadioButton
+        android:id="@+id/tab_search"
+        android:text="发现" 
+        style="@style/Tab.RadioButton"/>
+   
+   <RadioButton
+        android:id="@+id/tab_about"
+        android:text="关于" 
+        style="@style/Tab.RadioButton"/>
+</RadioGroup>
+</LinearLayout>
