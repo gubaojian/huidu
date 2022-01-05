@@ -3,7 +3,7 @@
     "htmlparser2": "^3.10.1",
     "log4js": "^6.3.0",
     "mysql": "^2.18.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^1.19.1"
   }
 }
