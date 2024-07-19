@@ -5,19 +5,27 @@ import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class RocksDBFileStore implements FileStore {
 
 
-    static {
-        RocksDB.loadLibrary();
-    }
+
 
     /**
      * 数据库存储路径
      * */
     private String rocksdbFilePath;
 
+
+
+    /**
+     * single thread 单线程存储
+     * */
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
     /**
      * 数据库存储
      * */
@@ -32,11 +40,13 @@ public class RocksDBFileStore implements FileStore {
     public RocksDBFileStore(String rocksdbFilePath) {
         this.rocksdbFilePath = rocksdbFilePath;
         this.lruCache = new LruCache(256);
-        initRocksDb();
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                initRocksDb();
+            }
+        });
     }
-
-
-
 
 
     private void initRocksDb(){
@@ -52,20 +62,31 @@ public class RocksDBFileStore implements FileStore {
 
     @Override
     public String save(byte[] bts) {
-        String uuid = UUID.randomUUID().toString();
-        try {
-            fileStoreDB.put(uuid.getBytes(), bts);
-        } catch (RocksDBException e) {
-            throw new RuntimeException(e);
-        }
+        final String uuid = UUID.randomUUID().toString();
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    fileStoreDB.put(uuid.getBytes(), bts);
+                } catch (RocksDBException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return uuid;
     }
 
     @Override
     public byte[] get(String key) {
         try {
-            return fileStoreDB.get(key.getBytes());
-        } catch (RocksDBException e) {
+            Future< byte[]> future = executorService.submit(new Callable<byte[]>(){
+                @Override
+                public byte[] call() throws Exception {
+                    return fileStoreDB.get(key.getBytes());
+                }
+            });
+            return future.get();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

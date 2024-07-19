@@ -145,10 +145,4 @@
             limit #{startIndex}, #{pageSize}
        )b, article t where b.id = t.id
   </select>
-  
-
-
-  
-  
-  
 </mapper>
